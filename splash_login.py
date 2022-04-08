@@ -165,8 +165,9 @@ def loginclick() :
 def home_page() :
     global home_frm,username,menu_frm,news_frm,daily_act_frm,date
     username = userentry.get()
+    userentry.delete(0,END)
+    pwdentry.delete(0,END)
     login_frm.destroy()
-    
     home_frm = Frame(root,bg="#FEEDED")
     menu_frm = Frame(root,bg="#FFD4D4")
     news_frm = Frame(root,bg="#FFDDDD")
@@ -194,8 +195,11 @@ def home_page() :
     home_frm.place(x=215,y=0,width=985,height=h)
 
 def logoutClick() :
-    #navRoot.destroy()
     home_frm.destroy()
+    menu_frm.destroy()
+    news_frm.destroy()
+    daily_act_frm.destroy()
+
     login_page(root)
 
 def calendar_page() :
@@ -227,9 +231,9 @@ def profile_page() :
     profile_top.title("Cereal Profile")
     pro_x = profile_top.winfo_screenwidth()/2 - pro_w/2
     pro_y = profile_top.winfo_screenheight()/2 - pro_h/2
-    profile_top.geometry("%dx%d+%d+%d"%(pro_w,pro_h,pro_x,pro_y))
+    #profile_top.geometry("%dx%d+%d+%d"%(pro_w,pro_h,pro_x,pro_y))
+    profile_top.geometry("%dx%d"%(pro_w,pro_h))
     profile_top.config(bg='#FFDDDD')
-    profile_top.title("Cereal Digital Planner")
     profile_top.option_add('*font',"Calibri 24 bold")
     profile_top.iconbitmap("img/pro_icon.ico")
     profile_top.resizable(0,0)
@@ -257,7 +261,66 @@ def profile_page() :
 
 
 def chg_password() :
-    print("chg_password")
+    global chgpwd_top,chgpwd,cf_chgpwd,curpwd_ent,newpwd_ent
+    chgpwd_top = Toplevel()
+    chgpwd_w = 363
+    chgpwd_h = 200
+    chgpwd_top.title("Change Password")
+    chgpwd_x = chgpwd_top.winfo_screenwidth()/2 - chgpwd_w/2
+    chgpwd_y = chgpwd_top.winfo_screenheight()/2 - chgpwd_h/2
+    #chgpwd_top.geometry("%dx%d+%d+%d"%(chgpwd_w,chgpwd_h,chgpwd_x,chgpwd_y))
+    chgpwd_top.geometry("%dx%d"%(chgpwd_w,chgpwd_h))
+    chgpwd_top.config(bg='#FFDDDD')
+    chgpwd_top.option_add('*font',"Calibri 24 bold")
+    chgpwd_top.iconbitmap("img/pro_icon.ico")
+    chgpwd_top.rowconfigure((0,1,2,3),weight=1)
+    chgpwd_top.columnconfigure((0,1,2),weight=1)
+    chgpwd = StringVar()
+    cf_chgpwd = StringVar()
+
+    Label(chgpwd_top,text="Change Account Password",bg="#FFDDDD",font="Calibri 18",fg="#7B6079").grid(row=0,column=0,padx=2,pady=5,columnspan=3,sticky="news")
+    
+    Label(chgpwd_top,text="Current Password",bg="#FFDDDD",font="Calibri 12",fg="#7B6079").grid(row=1,column=0,padx=2,pady=5,sticky="n")
+    curpwd_ent = Entry(chgpwd_top,textvariable=chgpwd,show="●",font="Arial 12",relief=FLAT,bd=0,width=25)
+    curpwd_ent.grid(row=1,column=1,sticky="n",padx=8,pady=7,columnspan=3)
+
+    Label(chgpwd_top,text="New Password",bg="#FFDDDD",font="Calibri 12",fg="#7B6079").grid(row=2,column=0,padx=2,pady=5,sticky="n")
+    newpwd_ent = Entry(chgpwd_top,textvariable=cf_chgpwd,show="●",font="Arial 12",relief=FLAT,bd=0,width=25)
+    newpwd_ent.grid(row=2,column=1,sticky="n",padx=8,pady=7,columnspan=3)
+
+    Button(chgpwd_top,text="Confirm",bg="#FFDDDD",font="Calibri 12",fg="#3B2E3B",relief=FLAT,bd=1,activebackground="#FFDDDD",command=confirm_chg).grid(row=3,column=0,sticky="news",padx=8,pady=7,columnspan=3)
+
+    chgpwd_top.mainloop()
+
+
+def confirm_chg() :
+    print(curpwd_ent.get())
+    print(newpwd_ent.get())
+
+    sql = """
+            select password
+            from Member
+            where username=?"""
+    cursor.execute(sql,[username])
+    cur_pwd = cursor.fetchone()
+    if curpwd_ent.get() == "" :
+        messagebox.showerror("Cereal","Please Enter Current Password")
+        curpwd_ent.focus_force()
+    elif newpwd_ent.get() == "" :
+        messagebox.showerror("Cereal","Please Enter New Password")
+        newpwd_ent.focus_force()
+    elif cur_pwd[0] == curpwd_ent.get() :
+        sql = """
+                update Member
+                set password=?
+                where username=?"""
+        cursor.execute(sql,[newpwd_ent.get(),username])
+        conn.commit()
+        messagebox.showinfo("Cereal","Change Password Successfully")
+        chgpwd_top.destroy()
+    else :
+        messagebox.showerror("Cereal","Password Incorrect!")
+        curpwd_ent.focus_force()
 
 def regiswindow() :
     global regis_frm,userentry,pwdentry,photo_frm,regis_first_ent,regis_last_ent,regis_username_ent,regis_pwd_ent,regis_cfpwd_ent
