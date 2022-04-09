@@ -1,12 +1,12 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk,messagebox,PhotoImage
 from tkinter.ttk import Progressbar
 from textwrap import fill
-from tkinter import ttk,messagebox,PhotoImage
 from itertools import cycle
 from tkcalendar import Calendar
 from PIL import ImageTk, Image
-import sqlite3,datetime
+from gnews import GNews
+import sqlite3,datetime,webbrowser
 
 
 def splash_screen() :
@@ -103,8 +103,6 @@ def slideShow() :
     photo_frm.config(image=img)
     root.after(7000, slideShow)
 
-
-
 def login_page(root) :
     global login_frm,userentry,pwdentry,photo_frm
     # Photo slide
@@ -129,10 +127,8 @@ def login_page(root) :
     
     Button(login_frm,activebackground="#FEEDED",text="Login",bg="#FEEDED",fg="#7B6079",relief=FLAT,width=10,command=loginclick,bd=0).grid(row=6,column=0,columnspan=2,pady=20,ipady=15,sticky='s',padx=20)
     Button(login_frm,activebackground="#FEEDED",text="Register",bg="#FEEDED",fg="#7B6079",relief=FLAT,width=10,command=regiswindow,bd=0).grid(row=7,column=0,columnspan=2,pady=20,ipady=15,sticky='n',padx=20)
-    
 
 def loginclick() :
-    #home_page()
     global user
     user = userentry.get()
     pwd = pwdentry.get()
@@ -180,21 +176,46 @@ def menu_bar() :
     home_page()
 
 def home_page() :
-    global home_frm,username,menu_frm,news_frm,daily_act_frm,date
+    global home_frm,username,news_frm,daily_act_frm,date,google_news,news
     login_frm.destroy()
+
     home_frm = Frame(root,bg="#FEEDED")
+
     news_frm = Frame(root,bg="#FFDDDD")
+    news_frm.rowconfigure((1,2,3,4,5,6,7,8,9),weight=1)
+    news_frm.rowconfigure((0),weight=5)
+    news_frm.columnconfigure((0,1),weight=1)
+    google_news = GNews()
+    google_news = GNews(language='th', country='thai', period='1d', max_results=10, exclude_websites=['google.com', 'bbc.com/thai'])
+    news = google_news.get_news('covid')
+
     daily_act_frm = Frame(root,bg="#FFDDDD")
+    
     get_today = datetime.date.today()
     today = str(get_today)
-    
     date = Label(home_frm,text="Current date : "+today,bg="#FEEDED", fg="#7B6079", font="BahnschriftLight 20")
     date.place(x=560,y=62)
+
     Label(news_frm,text="News",bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 20 bold" ).place(x=197,y=17)
+    i = 0
+    for n in range (3) :
+        Label(news_frm,text=news[n]['title'],bg="#FFDDDD", fg="#1B1C22", font="BahnschriftLight 10" ).grid(row=i+1,column=0,columnspan=2,sticky="nw",padx=5,pady=4)
+        Label(news_frm,text=news[n]['published date'],bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 8" ).grid(row=i+2,column=0,columnspan=2,sticky="nw",padx=5,pady=1)
+        i += 3
+    Button(news_frm, text="Read More",command=lambda:opennews(0), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=SUNKEN).grid(row=3,column=1,sticky="ne",padx=10,pady=1)
+    Button(news_frm, text="Read More",command=lambda:opennews(1), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=SUNKEN).grid(row=6,column=1,sticky="ne",padx=10,pady=1)
+    Button(news_frm, text="Read More",command=lambda:opennews(2), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=SUNKEN).grid(row=9,column=1,sticky="ne",padx=10,pady=1)
+
+
     Label(daily_act_frm,text="Daily Activity",bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 20 bold").place(x=43,y=17)
     news_frm.place(x=314,y=135,width=469,height=430)
     daily_act_frm.place(x=827,y=135,width=262,height=430)
     home_frm.place(x=215,y=0,width=985,height=h)
+
+def opennews(n) :
+    url = news[n]['url']
+    webbrowser.open(url,new=1)
+
 
 def logoutClick() :
     home_frm.destroy()
@@ -224,6 +245,7 @@ def timer_page() :
     date.destroy()
 
 def profile_page() :
+    global profile_top
     sql = "select first_name,last_name,regis_date from Member where username=?"
     cursor.execute(sql,[username])
     result = cursor.fetchone()
@@ -296,9 +318,6 @@ def chg_password() :
 
 
 def confirm_chg() :
-    print(curpwd_ent.get())
-    print(newpwd_ent.get())
-
     sql = """
             select password
             from Member
@@ -306,10 +325,10 @@ def confirm_chg() :
     cursor.execute(sql,[username])
     cur_pwd = cursor.fetchone()
     if curpwd_ent.get() == "" :
-        messagebox.showerror("Cereal","Please Enter Current Password")
+        messagebox.showerror("Cereal","Please Enter Current Password",parent=chgpwd_top)
         curpwd_ent.focus_force()
     elif newpwd_ent.get() == "" :
-        messagebox.showerror("Cereal","Please Enter New Password")
+        messagebox.showerror("Cereal","Please Enter New Password",parent=chgpwd_top)
         newpwd_ent.focus_force()
     elif cur_pwd[0] == curpwd_ent.get() :
         sql = """
@@ -318,11 +337,12 @@ def confirm_chg() :
                 where username=?"""
         cursor.execute(sql,[newpwd_ent.get(),username])
         conn.commit()
-        messagebox.showinfo("Cereal","Change Password Successfully")
+        messagebox.showinfo("Cereal","Change Password Successfully",parent=chgpwd_top)
         chgpwd_top.destroy()
     else :
-        messagebox.showerror("Cereal","Password Incorrect!")
+        messagebox.showerror("Cereal","Password Incorrect!",parent=chgpwd_top)
         curpwd_ent.focus_force()
+        curpwd_ent.select_range(0,END)
 
 def regiswindow() :
     global regis_frm,userentry,pwdentry,photo_frm,regis_first_ent,regis_last_ent,regis_username_ent,regis_pwd_ent,regis_cfpwd_ent

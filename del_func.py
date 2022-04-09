@@ -1,4 +1,4 @@
-btnState = False
+"""btnState = False
     top_lab = Frame(home_frm,bg="#6667AB")
     top_lab.place(x=0,y=0,width=1200,height=53)
     navbarBtn = Button(home_frm, image=navIcon, bg="#6667AB", activebackground="#6667AB", bd=0, padx=20, command=switch)
@@ -35,4 +35,16 @@ def switch():
         for x in range(-300, 0):
             navRoot.place(x=x, y=0)
             home_frm.update()
-        btnState = True
+        btnState = True"""
+
+from tkinter import *
+from tkinter import ttk
+#Create an instance of Tkinter frame or window
+win= Tk()
+#Set the geometry of tkinter frame
+win.geometry("750x250")
+#Create a text widget and wrap by words
+text= Text(win,wrap=WORD)
+text.insert(INSERT,"Python is an interpreted, high-level and general-purpose programming language. Python's design philosophy emphasizes code readability with its notable use of significant indentation.")
+text.pack()
+win.mainloop()
