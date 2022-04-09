@@ -126,13 +126,14 @@ def login_page(root) :
     Label(login_frm,text="Password",bg="#FEEDED",fg="#7B6079",font="Calibri 18").grid(row=4,column=0,sticky="ws",padx=10,pady=5)
     pwdentry = Entry(login_frm,textvariable=pwdinfo,show="●",font="Arial 12",relief=FLAT,bd=0)
     pwdentry.grid(row=5,column=0,columnspan=2,sticky="new",padx=10,pady=5,ipady=6)
-
+    
     Button(login_frm,activebackground="#FEEDED",text="Login",bg="#FEEDED",fg="#7B6079",relief=FLAT,width=10,command=loginclick,bd=0).grid(row=6,column=0,columnspan=2,pady=20,ipady=15,sticky='s',padx=20)
     Button(login_frm,activebackground="#FEEDED",text="Register",bg="#FEEDED",fg="#7B6079",relief=FLAT,width=10,command=regiswindow,bd=0).grid(row=7,column=0,columnspan=2,pady=20,ipady=15,sticky='n',padx=20)
     
+
 def loginclick() :
-    home_page()
-    """global user
+    #home_page()
+    global user
     user = userentry.get()
     pwd = pwdentry.get()
     
@@ -153,34 +154,37 @@ def loginclick() :
                 result = cursor.fetchone()
                 if result :
                     messagebox.showinfo("Cereal", "Login Successfully")
-                    home_page()
+                    menu_bar()
                 else :
                     messagebox.showwarning("Cereal", "Incorrect Password")
                     pwdentry.select_range(0, END)
                     pwdentry.focus_force()
         else :
             messagebox.showerror("Cereal", "Username not found\n Please register before Login")
-            userentry.focus_force()"""
+            userentry.focus_force()
 
-def home_page() :
-    global home_frm,username,menu_frm,news_frm,daily_act_frm,date
+def menu_bar() :
+    global username,menu_frm
     username = userentry.get()
     userentry.delete(0,END)
     pwdentry.delete(0,END)
-    login_frm.destroy()
-    home_frm = Frame(root,bg="#FEEDED")
     menu_frm = Frame(root,bg="#FFD4D4")
-    news_frm = Frame(root,bg="#FFDDDD")
-    daily_act_frm = Frame(root,bg="#FFDDDD")
-
-    options = ["Calendar", "Activity", "Music", "Timer","Profile"]
-    command_list = [calendar_page,activity_page,music_page,timer_page,profile_page]
+    options = ["Home","Calendar", "Activity", "Music", "Timer","Profile"]
+    command_list = [home_page,calendar_page,activity_page,music_page,timer_page,profile_page]
     y = 45
-    for i in range(5):
+    for i in range(6):
         Button(menu_frm, text=options[i],command=command_list[i], font="BahnschriftLight 15", bg="#FFD4D4", fg="#1B1C22", activebackground="#FFD4D4", activeforeground="#1B1C22", bd=0).place(x=25, y=y)
         y += 40
     Button(menu_frm, text="Logout",command=logoutClick, font="BahnschriftLight 15", bg="#FFD4D4", fg="#1B1C22", activebackground="#FFD4D4", activeforeground="#1B1C22", bd=0).place(x=25, y=620)
-    
+    menu_frm.place(x=0,y=0,width=215,height=h)
+    home_page()
+
+def home_page() :
+    global home_frm,username,menu_frm,news_frm,daily_act_frm,date
+    login_frm.destroy()
+    home_frm = Frame(root,bg="#FEEDED")
+    news_frm = Frame(root,bg="#FFDDDD")
+    daily_act_frm = Frame(root,bg="#FFDDDD")
     get_today = datetime.date.today()
     today = str(get_today)
     
@@ -188,8 +192,6 @@ def home_page() :
     date.place(x=560,y=62)
     Label(news_frm,text="News",bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 20 bold" ).place(x=197,y=17)
     Label(daily_act_frm,text="Daily Activity",bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 20 bold").place(x=43,y=17)
-
-    menu_frm.place(x=0,y=0,width=215,height=h)
     news_frm.place(x=314,y=135,width=469,height=430)
     daily_act_frm.place(x=827,y=135,width=262,height=430)
     home_frm.place(x=215,y=0,width=985,height=h)
@@ -280,11 +282,11 @@ def chg_password() :
 
     Label(chgpwd_top,text="Change Account Password",bg="#FFDDDD",font="Calibri 18",fg="#7B6079").grid(row=0,column=0,padx=2,pady=5,columnspan=3,sticky="news")
     
-    Label(chgpwd_top,text="Current Password",bg="#FFDDDD",font="Calibri 12",fg="#7B6079").grid(row=1,column=0,padx=2,pady=5,sticky="n")
+    Label(chgpwd_top,text="Current Password",bg="#FFDDDD",font="Calibri 12",fg="#7B6079").grid(row=1,column=0,padx=2,pady=5,sticky="ne")
     curpwd_ent = Entry(chgpwd_top,textvariable=chgpwd,show="●",font="Arial 12",relief=FLAT,bd=0,width=25)
     curpwd_ent.grid(row=1,column=1,sticky="n",padx=8,pady=7,columnspan=3)
 
-    Label(chgpwd_top,text="New Password",bg="#FFDDDD",font="Calibri 12",fg="#7B6079").grid(row=2,column=0,padx=2,pady=5,sticky="n")
+    Label(chgpwd_top,text="New Password",bg="#FFDDDD",font="Calibri 12",fg="#7B6079").grid(row=2,column=0,padx=2,pady=5,sticky="ne")
     newpwd_ent = Entry(chgpwd_top,textvariable=cf_chgpwd,show="●",font="Arial 12",relief=FLAT,bd=0,width=25)
     newpwd_ent.grid(row=2,column=1,sticky="n",padx=8,pady=7,columnspan=3)
 
