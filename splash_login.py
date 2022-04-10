@@ -3,7 +3,7 @@ from tkinter import ttk,messagebox,PhotoImage
 from tkinter.ttk import Progressbar
 from textwrap import fill
 from itertools import cycle
-from tkcalendar import Calendar
+from tkcalendar import Calendar,DateEntry
 from PIL import ImageTk, Image
 from gnews import GNews
 import sqlite3,datetime,webbrowser
@@ -26,7 +26,7 @@ def splash_screen() :
     ttk_style = ttk.Style()
     ttk_style.theme_use('clam')
     ttk_style.configure("red.Horizontal.TProgressbar", foreground='red', background='#777575')
-    progress = Progressbar(start_root,style="red.Horizontal.TProgressbar",orient=HORIZONTAL,length=500,mode='determinate')
+    progress = Progressbar(start_root,orient=HORIZONTAL,length=500,mode='determinate')
     progress.place(x=-10,y=235)
     bg_splash = '#FEEDED'
 
@@ -69,7 +69,7 @@ def createconnection() :
     cursor = conn.cursor()
 
 def mainwindow():
-    global root,userinfo,pwdinfo,navIcon,closeIcon,regis_first,regis_last,regis_username,regis_pwd,regis_cfpwd,w,h,bg_login
+    global root,userinfo,pwdinfo,regis_first,regis_last,regis_username,regis_pwd,regis_cfpwd,w,h,add_act_btn,del_act_btn,cycle_act,date_ent_spy,act_name_ent_spy,descript_ent_spy,color_ent_spy
     root = Tk()
     w = 1200
     h = 700
@@ -83,8 +83,9 @@ def mainwindow():
     root.columnconfigure((0,1,2,3,4),weight=1)
     root.resizable(0,0)
     root.iconbitmap("img/icon.ico")
-    navIcon = PhotoImage(file="img/menu.png")
-    closeIcon = PhotoImage(file="img/close.png")
+    add_act_btn = PhotoImage(file="img/add_act_btn.png")
+    del_act_btn = PhotoImage(file="img/del_act_btn.png")
+    cycle_act = PhotoImage(file="img/cycle_act.png").subsample(3,3)
     userinfo = StringVar()
     pwdinfo = StringVar()
     regis_first = StringVar()
@@ -92,6 +93,10 @@ def mainwindow():
     regis_username = StringVar()
     regis_pwd = StringVar()
     regis_cfpwd = StringVar()
+    date_ent_spy = StringVar()
+    act_name_ent_spy = StringVar()
+    descript_ent_spy = StringVar()
+    color_ent_spy = StringVar()
     login_page(root)
     root.mainloop()
 
@@ -101,7 +106,7 @@ photos = cycle(ImageTk.PhotoImage(Image.open(image)) for image in images)
 def slideShow() :
     img = next(photos)
     photo_frm.config(image=img)
-    root.after(7000, slideShow)
+    root.after(5500, slideShow)
 
 def login_page(root) :
     global login_frm,userentry,pwdentry,photo_frm
@@ -176,7 +181,7 @@ def menu_bar() :
     home_page()
 
 def home_page() :
-    global home_frm,username,news_frm,daily_act_frm,date,google_news,news
+    global home_frm,username,news_frm,daily_act_frm,date
     login_frm.destroy()
 
     home_frm = Frame(root,bg="#FEEDED")
@@ -185,16 +190,13 @@ def home_page() :
     news_frm.rowconfigure((1,2,3,4,5,6,7,8,9),weight=1)
     news_frm.rowconfigure((0),weight=5)
     news_frm.columnconfigure((0,1),weight=1)
-    google_news = GNews()
-    google_news = GNews(language='th', country='thai', period='1d', max_results=10, exclude_websites=['google.com', 'bbc.com/thai'])
-    news = google_news.get_news('covid')
 
     daily_act_frm = Frame(root,bg="#FFDDDD")
     
     get_today = datetime.date.today()
     today = str(get_today)
     date = Label(home_frm,text="Current date : "+today,bg="#FEEDED", fg="#7B6079", font="BahnschriftLight 20")
-    date.place(x=560,y=62)
+    date.place(x=560,y=55)
 
     Label(news_frm,text="News",bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 20 bold" ).place(x=197,y=17)
     i = 0
@@ -202,9 +204,9 @@ def home_page() :
         Label(news_frm,text=news[n]['title'],bg="#FFDDDD", fg="#1B1C22", font="BahnschriftLight 10" ).grid(row=i+1,column=0,columnspan=2,sticky="nw",padx=5,pady=4)
         Label(news_frm,text=news[n]['published date'],bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 8" ).grid(row=i+2,column=0,columnspan=2,sticky="nw",padx=5,pady=1)
         i += 3
-    Button(news_frm, text="Read More",command=lambda:opennews(0), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=SUNKEN).grid(row=3,column=1,sticky="ne",padx=10,pady=1)
-    Button(news_frm, text="Read More",command=lambda:opennews(1), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=SUNKEN).grid(row=6,column=1,sticky="ne",padx=10,pady=1)
-    Button(news_frm, text="Read More",command=lambda:opennews(2), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=SUNKEN).grid(row=9,column=1,sticky="ne",padx=10,pady=1)
+    Button(news_frm, text="Read More",command=lambda:opennews(0), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=FLAT).grid(row=3,column=1,sticky="ne",padx=10,pady=1)
+    Button(news_frm, text="Read More",command=lambda:opennews(1), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=FLAT).grid(row=6,column=1,sticky="ne",padx=10,pady=1)
+    Button(news_frm, text="Read More",command=lambda:opennews(2), font="BahnschriftLight 10", bg="#FFDDDD", fg="#1B1C22", activebackground="#FFDDDD", activeforeground="#1B1C22", bd=0,relief=FLAT).grid(row=9,column=1,sticky="ne",padx=10,pady=1)
 
 
     Label(daily_act_frm,text="Daily Activity",bg="#FFDDDD", fg="#7B6079", font="BahnschriftLight 20 bold").place(x=43,y=17)
@@ -222,27 +224,78 @@ def logoutClick() :
     menu_frm.destroy()
     news_frm.destroy()
     daily_act_frm.destroy()
-
     login_page(root)
 
 def calendar_page() :
+    global calendar_frm,act_frm,cal
     news_frm.destroy()
     daily_act_frm.destroy()
+    home_frm.destroy()
+    calendar_frm = Frame(root,bg="#FEEDED")
+    
+    cal = Calendar(calendar_frm, font="Arial 12", selectmode='day', locale='en_US',showweeknumbers=False,firstweekday="sunday",background="#FF7171",weekendforeground="#FF7171")
+    cal.place(x=155,y=63,width=390,height=287)
+    
+    Label(calendar_frm,image=cycle_act,bg="#FEEDED").place(x=630,y=64)
+    Button(calendar_frm,text="",image=add_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=add_activity).place(x=640,y=250,width=152,height=44)
+    Button(calendar_frm,text="",image=del_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=del_activity).place(x=640,y=307,width=152,height=44)
+    
+    act_frm = Frame(calendar_frm,bg="#FFDDDD")
+    act_frm.place(x=155,y=400,width=676,height=233)
+    act_frm.rowconfigure((0,1,2,3,4,5),weight=1)
+    act_frm.columnconfigure((0,1),weight=1)
+    add_activity()
+    calendar_frm.place(x=215,y=0,width=985,height=h)
 
+def add_activity() :
+    
+    Label(act_frm,text="Add Activity",font="BahnschriftLight 14",bg="#FFDDDD",fg="#1B1C22").grid(row=0,column=0,columnspan=2,sticky="news",padx=15,pady=10)
+    date = Label(act_frm,text="Date :",font="BahnschriftLight 14",bg="#FFDDDD",fg="#1B1C22")
+    date.grid(row=1,column=0,sticky="e",padx=15,pady=10)
+    act_name = Label(act_frm,text="Activity Name :",font="BahnschriftLight 14",bg="#FFDDDD",fg="#1B1C22")
+    act_name.grid(row=2,column=0,sticky="e",padx=15,pady=10)
+    descript = Label(act_frm,text="Description :",font="BahnschriftLight 14",bg="#FFDDDD",fg="#1B1C22")
+    descript.grid(row=3,column=0,sticky="e",padx=15,pady=10)
+    color = Label(act_frm,text="Color :",font="BahnschriftLight 14",bg="#FFDDDD",fg="#1B1C22")
+    color.grid(row=4,column=0,sticky="e",padx=15,pady=10)
+    
+    date_ent = Entry(act_frm,textvariable=date_ent_spy,font="Arial 12",relief=FLAT,bd=0)
+    date_ent.grid(row=1,column=1,sticky="w",padx=15,pady=10)
+    act_name_ent = Entry(act_frm,textvariable=act_name_ent_spy,font="Arial 12",relief=FLAT,bd=0)
+    act_name_ent.grid(row=2,column=1,sticky="w",padx=15,pady=10)
+    descript_ent = Entry(act_frm,textvariable=descript_ent_spy,font="Arial 12",relief=FLAT,bd=0)
+    descript_ent.grid(row=3,column=1,sticky="w",padx=15,pady=10)
+    color_ent = Entry(act_frm,textvariable=color_ent_spy,font="Arial 12",relief=FLAT,bd=0)
+    color_ent.grid(row=4,column=1,sticky="w",padx=15,pady=10)
+    date_ent_spy.set(cal.selection_get())
+    Button(act_frm,text="Confirm",command=cf_add_act,font="BahnschriftLight 14",bg="#FFDDDD",fg="#1B1C22",bd=0,relief=FLAT).grid(row=5,column=1,sticky="e",padx=15,pady=10)
+    # Button เอาแบบปุ่มข้างบน
+def cf_add_act() :
+    pass
+
+def del_activity() :
+    print("del_act")
 
 def activity_page() :
     news_frm.destroy()
     daily_act_frm.destroy()
+    home_frm.destroy()
+    activity_frm = Frame(root,bg="#FEEDED")
+    activity_frm.place(x=215,y=0,width=985,height=h)
 
 def music_page() :
     news_frm.destroy()
     daily_act_frm.destroy()
-    date.destroy()
+    home_frm.destroy()
+    music_frm = Frame(root,bg="#FEEDED")
+    music_frm.place(x=215,y=0,width=985,height=h)
 
 def timer_page() :
     news_frm.destroy()
     daily_act_frm.destroy()
-    date.destroy()
+    home_frm.destroy()
+    timer_frm = Frame(root,bg="#FEEDED")
+    timer_frm.place(x=215,y=0,width=985,height=h)
 
 def profile_page() :
     global profile_top
@@ -443,6 +496,10 @@ def exitRegis() :
     login_page(root)
 
 createconnection()
+
+google_news = GNews()
+google_news = GNews(language='th', country='thai', period='1d', max_results=10, exclude_websites=['google.com', 'bbc.com/thai'])
+news = google_news.get_news('covid')
 
 start_root = splash_screen()
 

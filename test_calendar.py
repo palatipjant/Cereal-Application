@@ -19,8 +19,9 @@ def example1():
     print(mindate, maxdate)
 
     cal = Calendar(top, font="Arial 14", selectmode='day', locale='en_US',
-                   mindate=mindate, maxdate=maxdate, disabledforeground='red',
-                   cursor="hand1", year=2018, month=2, day=5)
+                   background="black", disabledbackground="black", bordercolor="black", 
+               headersbackground="black", normalbackground="white", foreground='white', 
+               normalforeground='white', headersforeground='white')
     cal.pack(fill="both", expand=True)
     ttk.Button(top, text="ok", command=print_sel).pack()
 
