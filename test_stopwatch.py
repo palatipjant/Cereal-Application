@@ -2,63 +2,85 @@ import time
 from tkinter import *
 from tkinter import messagebox
 
-### Create the interface object
-clockWindow = Tk()
-clockWindow.geometry("500x500")
-clockWindow.title("Countdown Timer")
-clockWindow.configure(background='orange')
 
-### Declare variables
-hourString = StringVar()
-minuteString = StringVar()
-secondString = StringVar()
+f = ("Arial",24)
 
-### Set strings to default value
-hourString.set("00")
-minuteString.set("00")
-secondString.set("00")
+ws = Tk()
+ws.geometry("300x250+1500+700")
+ws.title("PythonGuides")
+ws.config(bg='#345')
 
-### Get user input
-hourTextbox = Entry(clockWindow, width=3, font=("Calibri", 20, ""), textvariable=hourString)
-minuteTextbox = Entry(clockWindow, width=3, font=("Calibri", 20, ""), textvariable=minuteString)
-secondTextbox = Entry(clockWindow, width=3, font=("Calibri", 20, ""), textvariable=secondString)
+hour=StringVar()
+minute=StringVar()
+second=StringVar()
 
-### Center textboxes
-hourTextbox.place(x=170, y=180)
-minuteTextbox.place(x=220, y=180)
-secondTextbox.place(x=270, y=180)
+hour.set("00")
+minute.set("00")
+second.set("10")
 
-def runTimer():
-    try:
-        clockTime = int(hourString.get())*3600 + int(minuteString.get())*60 + int(secondString.get())
-    except:
-        print("Incorrect values")
+hour_tf= Entry(
+	ws, 
+	width=3, 
+	font=f,
+	textvariable=hour
+	)
 
-    while(clockTime > -1):
-        
-        totalMinutes, totalSeconds = divmod(clockTime, 60)
+hour_tf.place(x=80,y=20)
 
-        totalHours = 0
-        if(totalMinutes > 60):
-            totalHours, totalMinutes = divmod(totalMinutes, 60)
+mins_tf= Entry(
+	ws, 
+	width=3, 
+	font=f,
+	textvariable=minute)
 
-        hourString.set("{0:2d}".format(totalHours))
-        minuteString.set("{0:2d}".format(totalMinutes))
-        secondString.set("{0:2d}".format(totalSeconds))
+mins_tf.place(x=130,y=20)
 
-        ### Update the interface
-        clockWindow.update()
-        time.sleep(1)
+sec_tf = Entry(
+	ws, 
+	width=3, 
+	font=f,
+	textvariable=second)
 
-        ### Let the user know if the timer has expired
-        if(clockTime == 0):
-            messagebox.showinfo("", "Your time has expired!")
-
-        clockTime -= 1
+sec_tf.place(x=180,y=20)
 
 
-setTimeButton = Button(clockWindow, text='Set Time', bd='5', command=runTimer)
-setTimeButton.place(relx=0.5, rely=0.5, anchor=CENTER)
+def startCountdown():
+	try:
+		userinput = int(hour.get())*3600 + int(minute.get())*60 + int(second.get())
+	except:
+		messagebox.showwarning('', 'Invalid Input!')
+	while userinput >-1:
+		mins,secs = divmod(userinput,60) 
 
-### Keep looping
-clockWindow.mainloop()
+		hours=0
+		if mins >60:
+			
+		
+			hours, mins = divmod(mins, 60)
+	
+		hour.set("{0:2d}".format(hours))
+		minute.set("{0:2d}".format(mins))
+		second.set("{0:2d}".format(secs))
+
+	
+		ws.update()
+		time.sleep(1)
+
+	
+		if (userinput == 0):
+			messagebox.showinfo("", "Time's Up")
+		
+
+		userinput -= 1
+
+start_btn = Button(
+	ws, 
+	text='START', 
+	bd='5',
+	command= startCountdown
+	)
+
+start_btn.place(x = 120,y = 120)
+
+
+ws.mainloop()
