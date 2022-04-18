@@ -139,46 +139,54 @@ def mainwindow():
 
     # DARK THEME
     global menu_bg_dark,home_bg_dark,login_bg_dark,regis_bg_dark,profile_bg_dark,calendar_bg_dark,chgpwd_bg_dark,act_bg_dark,music_bg_dark,second_act_bg_dark
-    
+    global home_ico_dark,calendar_ico_dark,act_ico_dark,music_ico_dark,timer_ico_darka
+    home_ico_dark = PhotoImage(file="img/dark_theme/element/home_ico.png")
+    calendar_ico_dark = PhotoImage(file="img/dark_theme/element/calendar_ico.png")
+    act_ico_dark = PhotoImage(file="img/dark_theme/element/act_ico.png")
+    music_ico_dark = PhotoImage(file="img/dark_theme/element/music_ico.png")
+    timer_ico_dark = PhotoImage(file="img/dark_theme/element/timer_ico.png")
 
-    menu_bg_dark = PhotoImage(file="img/light_theme/bg/menu_bg.png")
-    home_bg_dark = PhotoImage(file="img/light_theme/bg/home_bg.png")
-    login_bg_dark = PhotoImage(file="img/light_theme/bg/login_bg.png")
-    regis_bg_dark = PhotoImage(file="img/light_theme/bg/regis_bg.png")
-    profile_bg_dark = PhotoImage(file="img/light_theme/bg/profile_bg.png")
-    calendar_bg_dark = PhotoImage(file="img/light_theme/bg/calendar_bg.png")
-    chgpwd_bg_dark = PhotoImage(file="img/light_theme/bg/chgpwd_bg.png")
-    act_bg_dark = PhotoImage(file="img/light_theme/bg/act_bg.png")
-    music_bg_dark = PhotoImage(file="img/light_theme/bg/music_bg.png")
-    second_act_bg_dark = PhotoImage(file="img/light_theme/bg/second_act_bg.png")
+    menu_bg_dark = PhotoImage(file="img/dark_theme/bg/menu_bg.png")
+    home_bg_dark = PhotoImage(file="img/dark_theme/bg/home_bg.png")
+    login_bg_dark = PhotoImage(file="img/dark_theme/bg/login_bg.png")
+    regis_bg_dark = PhotoImage(file="img/dark_theme/bg/regis_bg.png")
+    profile_bg_dark = PhotoImage(file="img/dark_theme/bg/profile_bg.png")
+    calendar_bg_dark = PhotoImage(file="img/dark_theme/bg/calendar_bg.png")
+    chgpwd_bg_dark = PhotoImage(file="img/dark_theme/bg/chgpwd_bg.png")
+    act_bg_dark = PhotoImage(file="img/dark_theme/bg/act_bg.png")
+    music_bg_dark = PhotoImage(file="img/dark_theme/bg/music_bg.png")
+    second_act_bg_dark = PhotoImage(file="img/dark_theme/bg/second_act_bg.png")
 
-    cereal_login_dark = PhotoImage(file="img/light_theme/element/cereal_login.png")
-    add_act_btn_dark = PhotoImage(file="img/light_theme/element/add_act_btn.png")
-    del_act_btn_dark = PhotoImage(file="img/light_theme/element/del_act_btn.png")
-    login_btn_dark = PhotoImage(file="img/light_theme/element/login_btn.png")
-    regis_btn_dark = PhotoImage(file="img/light_theme/element/regis_btn.png")
-    regis_btn1_dark = PhotoImage(file="img/light_theme/element/regis_btn1.png")
-    login_btn1_dark = PhotoImage(file="img/light_theme/element/login_btn1.png")
-    chgpwd_btn_dark = PhotoImage(file="img/light_theme/element/chgpwd_btn.png")
-    back_btn_dark = PhotoImage(file="img/light_theme/element/back_btn.png")
-    confirm_btn_dark = PhotoImage(file="img/light_theme/element/confirm_btn.png")
-    lofi_1_dark = PhotoImage(file="img/light_theme/element/lofi_1.png")
-    lofi_2_dark = PhotoImage(file="img/light_theme/element/lofi_2.png")
-    guitar_1_dark = PhotoImage(file="img/light_theme/element/guitar_1.png")
-    guitar_2_dark = PhotoImage(file="img/light_theme/element/guitar_2.png")
-    chill_1_dark = PhotoImage(file="img/light_theme/element/chill_1.png")
-    kpop_1_dark = PhotoImage(file="img/light_theme/element/kpop_1.png")
-    pre_page_btn_dark = PhotoImage(file="img/light_theme/element/pre_page_btn.png")
-    next_page_btn_dark = PhotoImage(file="img/light_theme/element/next_page_btn.png")
-    dis_pre_page_btn_dark = PhotoImage(file="img/light_theme/element/dis_pre_page_btn.png")
-    dis_next_page_btn_dark = PhotoImage(file="img/light_theme/element/dis_next_page_btn.png")
-    confirm_chgpwd_dark = PhotoImage(file="img/light_theme/element/confirm_chgpwd.png")
-    play_song_btn_dark = PhotoImage(file="img/light_theme/element/play_song.png")
-    volumn_down_btn_dark = PhotoImage(file="img/light_theme/element/volumn_down.png")
-    volumn_up_btn_dark = PhotoImage(file="img/light_theme/element/volumn_up.png")
-    pause_btn_dark = PhotoImage(file="img/light_theme/element/pause_song.png")
+    global cereal_login_dark,add_act_btn_dark,del_act_btn_dark,login_btn_dark,regis_btn_dark,regis_btn1_dark,login_btn1_dark,chgpwd_btn_dark,back_btn_dark,confirm_btn_dark
+    global lofi_1_dark, lofi_2_dark, guitar_1_dark, guitar_2_dark, chill_1_dark, kpop_1_dark, pre_page_btn_dark, next_page_btn_dark, dis_pre_page_btn_dark, dis_next_page_btn_dark
+    global confirm_chgpwd_dark,play_song_btn_dark,volumn_down_btn_dark,volumn_up_btn_dark,pause_btn_dark,freetime_dark
+    cereal_login_dark = PhotoImage(file="img/dark_theme/element/cereal_login.png")
+    add_act_btn_dark = PhotoImage(file="img/dark_theme/element/add_act_btn.png")
+    del_act_btn_dark = PhotoImage(file="img/dark_theme/element/del_act_btn.png")
+    login_btn_dark = PhotoImage(file="img/dark_theme/element/login_btn.png")
+    regis_btn_dark = PhotoImage(file="img/dark_theme/element/regis_btn.png")
+    regis_btn1_dark = PhotoImage(file="img/dark_theme/element/regis_btn1.png")
+    login_btn1_dark = PhotoImage(file="img/dark_theme/element/login_btn1.png")
+    chgpwd_btn_dark = PhotoImage(file="img/dark_theme/element/chgpwd_btn.png")
+    back_btn_dark = PhotoImage(file="img/dark_theme/element/back_btn.png")
+    confirm_btn_dark = PhotoImage(file="img/dark_theme/element/confirm_btn.png")
+    lofi_1_dark = PhotoImage(file="img/dark_theme/element/lofi_1.png")
+    lofi_2_dark = PhotoImage(file="img/dark_theme/element/lofi_2.png")
+    guitar_1_dark = PhotoImage(file="img/dark_theme/element/guitar_1.png")
+    guitar_2_dark = PhotoImage(file="img/dark_theme/element/guitar_2.png")
+    chill_1_dark = PhotoImage(file="img/dark_theme/element/chill_1.png")
+    kpop_1_dark = PhotoImage(file="img/dark_theme/element/kpop_1.png")
+    pre_page_btn_dark = PhotoImage(file="img/dark_theme/element/pre_page_btn.png")
+    next_page_btn_dark = PhotoImage(file="img/dark_theme/element/next_page_btn.png")
+    dis_pre_page_btn_dark = PhotoImage(file="img/dark_theme/element/dis_pre_page_btn.png")
+    dis_next_page_btn_dark = PhotoImage(file="img/dark_theme/element/dis_next_page_btn.png")
+    confirm_chgpwd_dark = PhotoImage(file="img/dark_theme/element/confirm_chgpwd.png")
+    play_song_btn_dark = PhotoImage(file="img/dark_theme/element/play_song.png")
+    volumn_down_btn_dark = PhotoImage(file="img/dark_theme/element/volumn_down.png")
+    volumn_up_btn_dark = PhotoImage(file="img/dark_theme/element/volumn_up.png")
+    pause_btn_dark = PhotoImage(file="img/dark_theme/element/pause_song.png")
 
-    freetime_dark = PhotoImage(file="img/light_theme/element/freetime.png")
+    freetime_dark = PhotoImage(file="img/dark_theme/element/freetime.png")
 
     userinfo = StringVar()
     pwdinfo = StringVar()
@@ -209,7 +217,7 @@ def slideShow() :
 
 
 def login_page(root) :
-    global login_frm,userentry,pwdentry,photo_frm
+    global login_frm,userentry,pwdentry,photo_frm,bg_login,login_logo,username_label,password_label,btn_login,btn_regis
     # Photo slide
     photo_frm = Label(root)
     root.after(10,lambda:slideShow())
@@ -221,21 +229,28 @@ def login_page(root) :
     login_frm.columnconfigure((0,1),weight=1)
     login_frm.place(x=720,y=0,width=480,height=700)
 
-    Label(login_frm,image=login_bg,bg="#FEEDED").place(x=0,y=0,width=480,height=700)
-    Label(login_frm,image=cereal_login,bg="#FEEDED").place(x=69,y=73,width=358,height=50)
+    bg_login = Label(login_frm,image=login_bg,bg="#FEEDED")
+    bg_login.place(x=0,y=0,width=480,height=700)
 
-    Label(login_frm,text="Username",bg="#FEEDED",fg="#8F8B8F",font="Calibri 16").place(x=92,y=213)
+    login_logo = Label(login_frm,image=cereal_login,bg="#FEEDED")
+    login_logo.place(x=69,y=73,width=358,height=50)
+
+    username_label = Label(login_frm,text="Username",bg="#FEEDED",fg="#8F8B8F",font="Calibri 16")
+    username_label.place(x=92,y=213)
     userentry = Entry(login_frm,textvariable=userinfo,font="Arial 12",relief=FLAT,bd=0)
     userentry.place(x=94,y=247,width=304,height=28)
     userentry.focus_force()
-    Label(login_frm,text="Password",bg="#FEEDED",fg="#8F8B8F",font="Calibri 16").place(x=92,y=305)
+
+    password_label = Label(login_frm,text="Password",bg="#FEEDED",fg="#8F8B8F",font="Calibri 16")
+    password_label.place(x=92,y=305)
     pwdentry = Entry(login_frm,textvariable=pwdinfo,show="●",font="Arial 12",relief=FLAT,bd=0)
     pwdentry.place(x=94,y=339,width=304,height=28)
 
-    Button(login_frm,activebackground="#FEEDED",image=login_btn,bg="#FEEDED",relief=FLAT,width=10,command=loginclick,bd=0, cursor="hand2").place(x=116,y=485,width=255,height=60)
-    Button(login_frm,activebackground="#FEEDED",image=regis_btn,bg="#FEEDED",relief=FLAT,width=10,command=regiswindow,bd=0, cursor="hand2").place(x=160,y=568,width=168,height=39)
-    #Button(login_frm,activebackground="#FEEDED",text="Login",bg="#FEEDED",fg="#7B6079",font="Aparajita 24 bold",relief=FLAT,width=10,command=loginclick,bd=0).grid(row=6,column=0,columnspan=2,pady=20,ipady=15,sticky='s',padx=20)
-    #Button(login_frm,activebackground="#FEEDED",text="Register",bg="#FEEDED",fg="#7B6079",font="Aparajita 24 bold",relief=FLAT,width=10,command=regiswindow,bd=0).grid(row=7,column=0,columnspan=2,pady=20,ipady=15,sticky='n',padx=20)
+    btn_login = Button(login_frm,activebackground="#FEEDED",image=login_btn,bg="#FEEDED",relief=FLAT,width=10,command=loginclick,bd=0, cursor="hand2")
+    btn_login.place(x=116,y=485,width=255,height=60)
+    btn_regis = Button(login_frm,activebackground="#FEEDED",image=regis_btn,bg="#FEEDED",relief=FLAT,width=10,command=regiswindow,bd=0, cursor="hand2")
+    btn_regis.place(x=160,y=568,width=168,height=39)
+
 
 def loginclick() :
     global user
@@ -274,52 +289,52 @@ def menu_bar() :
     userentry.delete(0,END)
     pwdentry.delete(0,END)
     menu_frm = Frame(root,bg="#FFD4D4")
-    Label(menu_frm,image=menu_bg,bg="#EBECFA").place(x=0,y=0,width=215,height=h)
+    Label(menu_frm,image=menu_bg_dark,bg="#161E58").place(x=0,y=0,width=215,height=h)
     
     options = [" Home"," Calendar", " Activity", " Music", " Timer"," Profile"]
     command_list = [home_page,calendar_page,activity_page,music_page,timer_page,profile_page]
 
     
-    home_menu = Button(menu_frm,text=options[0],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[0],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    home_menu = Button(menu_frm,text=options[0],bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[0],activebackground="#575F96",activeforeground="#FFFFFF", cursor="hand2")
     home_menu.place(x=0,y=138,width=215,height=60)
-    cal_menu = Button(menu_frm,text=options[1],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[1],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    cal_menu = Button(menu_frm,text=options[1],bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[1],activebackground="#575F96",activeforeground="#FFFFFF", cursor="hand2")
     cal_menu.place(x=0,y=198,width=215,height=60)
-    act_menu = Button(menu_frm,text=options[2],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[2],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    act_menu = Button(menu_frm,text=options[2],bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[2],activebackground="#575F96",activeforeground="#FFFFFF", cursor="hand2")
     act_menu.place(x=0,y=258,width=215,height=60)
-    music_menu = Button(menu_frm,text=options[3],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[3],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    music_menu = Button(menu_frm,text=options[3],bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[3],activebackground="#575F96",activeforeground="#FFFFFF", cursor="hand2")
     music_menu.place(x=0,y=318,width=215,height=60)
-    timer_menu = Button(menu_frm,text=options[4],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[4],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    timer_menu = Button(menu_frm,text=options[4],bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[4],activebackground="#575F96",activeforeground="#FFFFFF", cursor="hand2")
     timer_menu.place(x=0,y=378,width=215,height=60)
-    profile_menu = Button(menu_frm,text=options[5],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[5],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    profile_menu = Button(menu_frm,text=options[5],bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[5],activebackground="#575F96",activeforeground="#FFFFFF", cursor="hand2")
     profile_menu.place(x=0,y=438,width=215,height=60)
-    Button(menu_frm,text="Logout",bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 12",command=logoutClick,activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2").place(x=80,y=618)
+    Button(menu_frm,text="Logout",bg="#161E58",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 12",command=logoutClick,activebackground="#161E58",activeforeground="#FFFFFF", cursor="hand2").place(x=80,y=618)
     menu_frm.place(x=0,y=0,width=215,height=h)
     home_page()
 
 def home_page() :
     global home_frm,username,date,today
     login_frm.destroy()
-    home_menu["bg"] = "#FFBABA"
-    home_menu["fg"] = "#FF3030"
-    home_menu["activebackground"] = "#FFBABA"
-    home_menu["activeforeground"] = "#FF3030"
-    cal_menu["bg"] = "#FF5454"
+    home_menu["bg"] = "#575F96"
+    home_menu["fg"] = "#FFFFFF"
+    home_menu["activebackground"] = "#575F96"
+    home_menu["activeforeground"] = "#FFFFFF"
+    cal_menu["bg"] = "#161E58"
     cal_menu["fg"] = "#FFFFFF"
-    cal_menu["activebackground"] = "#FF5454"
+    cal_menu["activebackground"] = "#161E58"
     cal_menu["activeforeground"] = "#FFFFFF"
-    act_menu["bg"] = "#FF5454"
+    act_menu["bg"] = "#161E58"
     act_menu["fg"] = "#FFFFFF"
-    act_menu["activebackground"] = "#FF5454"
+    act_menu["activebackground"] = "#161E58"
     act_menu["activeforeground"] = "#FFFFFF"
-    music_menu["bg"] = "#FF5454"
+    music_menu["bg"] = "#161E58"
     music_menu["fg"] = "#FFFFFF"
-    music_menu["activebackground"] = "#FF5454"
+    music_menu["activebackground"] = "#161E58"
     music_menu["activeforeground"] = "#FFFFFF"
-    timer_menu["bg"] = "#FF5454"
+    timer_menu["bg"] = "#161E58"
     timer_menu["fg"] = "#FFFFFF"
-    timer_menu["activebackground"] = "#FF5454"
+    timer_menu["activebackground"] = "#161E58"
     timer_menu["activeforeground"] = "#FFFFFF"
-    home_menu["image"] = home_ico
+    home_menu["image"] = home_ico_dark
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
     cal_menu["compound"] = LEFT
@@ -332,33 +347,33 @@ def home_page() :
 
 
     home_frm = Frame(root,bg="#FEEDED")
-    Label(home_frm,image=home_bg,bg="#EBECFA").place(x=0,y=0,width=985,height=h)
+    Label(home_frm,image=home_bg_dark,bg="#EBECFA").place(x=0,y=0,width=985,height=h)
     # real time clock
     def time():
         string = strftime('%H:%M:%S %p')
         real_time.config(text = string)
         real_time.after(1000, time)
 
-    real_time = Label(home_frm, font = "BahnschriftLight 18",background = '#FFEDED',foreground = '#7B6079')
+    real_time = Label(home_frm, font = "BahnschriftLight 18",background = '#0A1471',foreground = '#7B6079')
     real_time.place(x=740,y=40)
     time()
     #date
     get_today = datetime.date.today()
     today = str(get_today)
-    date = Label(home_frm,text=today,bg="#FFEDED", fg="#7B6079", font="BahnschriftLight 16")
+    date = Label(home_frm,text=today,bg="#0A1471", fg="#D8D5D8", font="BahnschriftLight 16")
     date.place(x=760,y=73)
     
-    Label(home_frm,text=news[0]['title'],bg="#FFFFFF", fg="#1B1C22", font="Tahoma 12" ,wraplength=460,justify='left').place(x=109,y=228)
-    Label(home_frm,text=news[0]['published date'],bg="#FFFFFF", fg="#7B6079", font="BahnschriftLight 8" ).place(x=109,y=275)
-    Button(home_frm, text="Read More...",command=lambda:opennews(0), font="Kalinga 10 bold", bg="#FFFFFF", fg="#1B1C22", activebackground="#FFFFFF", activeforeground="#1B1C22", bd=0,relief=FLAT, cursor="hand2").place(x=480,y=288)
+    Label(home_frm,text=news[0]['title'],bg="#333333", fg="#FFFFFF", font="Tahoma 12" ,wraplength=460,justify='left').place(x=109,y=228)
+    Label(home_frm,text=news[0]['published date'],bg="#333333", fg="#FFFFFF", font="BahnschriftLight 8" ).place(x=109,y=275)
+    Button(home_frm, text="Read More...",command=lambda:opennews(0), font="Kalinga 10 bold", bg="#333333", fg="#FFFFFF", activebackground="#333333", activeforeground="#1B1C22", bd=0,relief=FLAT, cursor="hand2").place(x=480,y=288)
     
-    Label(home_frm,text=news[1]['title'],bg="#FFFFFF", fg="#1B1C22", font="Tahoma 12" ,wraplength=460,justify='left').place(x=109,y=331)
-    Label(home_frm,text=news[1]['published date'],bg="#FFFFFF", fg="#7B6079", font="BahnschriftLight 8" ).place(x=109,y=378)
-    Button(home_frm, text="Read More...",command=lambda:opennews(1), font="Kalinga 10 bold", bg="#FFFFFF", fg="#1B1C22", activebackground="#FFFFFF", activeforeground="#1B1C22", bd=0,relief=FLAT, cursor="hand2").place(x=480,y=391)
+    Label(home_frm,text=news[1]['title'],bg="#333333", fg="#FFFFFF", font="Tahoma 12" ,wraplength=460,justify='left').place(x=109,y=331)
+    Label(home_frm,text=news[1]['published date'],bg="#333333", fg="#FFFFFF", font="BahnschriftLight 8" ).place(x=109,y=378)
+    Button(home_frm, text="Read More...",command=lambda:opennews(1), font="Kalinga 10 bold", bg="#333333", fg="#FFFFFF", activebackground="#333333", activeforeground="#1B1C22", bd=0,relief=FLAT, cursor="hand2").place(x=480,y=391)
     
-    Label(home_frm,text=news[2]['title'],bg="#FFFFFF", fg="#1B1C22", font="Tahoma 12" ,wraplength=460,justify='left').place(x=109,y=434)
-    Label(home_frm,text=news[2]['published date'],bg="#FFFFFF", fg="#7B6079", font="BahnschriftLight 8" ).place(x=109,y=481)
-    Button(home_frm, text="Read More...",command=lambda:opennews(2), font="Kalinga 10 bold", bg="#FFFFFF", fg="#1B1C22", activebackground="#FFFFFF", activeforeground="#1B1C22", bd=0,relief=FLAT, cursor="hand2").place(x=480,y=494)
+    Label(home_frm,text=news[2]['title'],bg="#333333", fg="#FFFFFF", font="Tahoma 12" ,wraplength=460,justify='left').place(x=109,y=434)
+    Label(home_frm,text=news[2]['published date'],bg="#333333", fg="#FFFFFF", font="BahnschriftLight 8" ).place(x=109,y=481)
+    Button(home_frm, text="Read More...",command=lambda:opennews(2), font="Kalinga 10 bold", bg="#333333", fg="#FFFFFF", activebackground="#333333", activeforeground="#1B1C22", bd=0,relief=FLAT, cursor="hand2").place(x=480,y=494)
 
     daily_act()
     home_frm.place(x=215,y=0,width=985,height=h)
@@ -375,7 +390,7 @@ def daily_act() :
     if (len(result)) > 7 :
         result_daily = result[0:7]
 
-    daily_act_frm =Frame(home_frm,bg="#FFFFFF")
+    daily_act_frm =Frame(home_frm,bg="#333333")
     daily_act_frm.place(x=618,y=211,width=262,height=317)
     daily_act_frm.rowconfigure((0,1,2,3,4,5,6,7),weight=1)
     daily_act_frm.columnconfigure((0,1),weight=1)
@@ -392,10 +407,10 @@ def daily_act() :
                 color_act = blue_act
             elif result_daily[i][2] == "Purple" :
                 color_act = purple_act
-            Label(daily_act_frm,text=result_daily[i][1],bg="#FFFFFF",font="Nunito 12 bold",fg="#1B1C22").grid(row=i+1,column=1,sticky="nw",padx=20)
-            Label(daily_act_frm,image=color_act,bg="#FFFFFF",font="Nunito 12 bold",fg="#1B1C22").grid(row=i+1,column=0,sticky="nw",padx=20,pady=6)
+            Label(daily_act_frm,text=result_daily[i][1],bg="#333333",font="Nunito 12 bold",fg="#1B1C22").grid(row=i+1,column=1,sticky="nw",padx=20)
+            Label(daily_act_frm,image=color_act,bg="#333333",font="Nunito 12 bold",fg="#1B1C22").grid(row=i+1,column=0,sticky="nw",padx=20,pady=6)
     else :
-        Label(daily_act_frm,image=freetime,bg="#FFFFFF").place(x=42,y=59,width=177,height=200)
+        Label(daily_act_frm,image=freetime_dark,bg="#333333").place(x=42,y=59,width=177,height=200)
 
 def opennews(n) :
     url = news[n]['url']
