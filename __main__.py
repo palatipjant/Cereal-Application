@@ -1,5 +1,6 @@
+from base64 import encode
 from tkinter import *
-from tkinter import ttk,messagebox,PhotoImage
+from tkinter import ttk,messagebox,PhotoImage,filedialog
 from tkinter.ttk import Progressbar
 from textwrap import fill
 from itertools import cycle
@@ -8,6 +9,7 @@ from PIL import ImageTk, Image
 from gnews import GNews
 import sqlite3,datetime,webbrowser,pygame
 from time import strftime
+from langdetect import detect
 
 def splash_screen() :
     # splash screen
@@ -68,9 +70,9 @@ def mainwindow():
     # mainwindow
     global root,userinfo,pwdinfo,regis_first,regis_last,regis_username,regis_pwd,regis_cfpwd,w,h,cereal_login,login_bg,regis_btn1,login_btn1,regis_bg
     global add_act_btn,del_act_btn,date_ent_spy,act_name_ent_spy,descript_ent_spy,color_ent_spy,menu_bg,home_bg,login_btn,regis_btn
-    global profile_bg,chgpwd_btn,back_btn,confirm_btn,chgpwd_bg,confirm_chgpwd,nusic_bg
-    global red_act,pink_act,green_act,blue_act,purple_act,calendar_bg,freetime,act_bg
-    global home_ico,calendar_ico,act_ico,music_ico,timer_ico,del_namecombo_spy,del_date_ent_spy
+    global profile_bg,chgpwd_btn,back_btn,confirm_btn,chgpwd_bg,confirm_chgpwd,music_bg,second_act_bg,ex_act_btn
+    global red_act,pink_act,green_act,blue_act,purple_act,calendar_bg,freetime,act_bg,dis_pre_page_btn,dis_next_page_btn
+    global home_ico,calendar_ico,act_ico,music_ico,timer_ico,del_namecombo_spy,del_date_ent_spy,next_page_btn,pre_page_btn
     global play_song_btn,volumn_down_btn,volumn_up_btn,pause_btn,song_spy,lofi_1,lofi_2,guitar_1,guitar_2,chill_1,kpop_1
     root = Tk()
     w = 1200
@@ -85,42 +87,61 @@ def mainwindow():
     root.columnconfigure((0,1,2,3,4),weight=1)
     root.resizable(0,0)
     root.overrideredirect(0)
-    root.iconbitmap("img/element/icon.ico")
-    add_act_btn = PhotoImage(file="img/element/add_act_btn.png")
-    del_act_btn = PhotoImage(file="img/element/del_act_btn.png")
-    cereal_login = PhotoImage(file="img/element/cereal_login.png")
-    menu_bg = PhotoImage(file="img/bg/menu_bg.png")
-    home_bg = PhotoImage(file="img/bg/home_bg.png")
-    login_btn = PhotoImage(file="img/element/login_btn.png")
-    regis_btn = PhotoImage(file="img/element/regis_btn.png")
-    login_bg = PhotoImage(file="img/bg/login_bg.png")
-    regis_btn1 = PhotoImage(file="img/element/regis_btn1.png")
-    login_btn1 = PhotoImage(file="img/element/login_btn1.png")
-    regis_bg = PhotoImage(file="img/bg/regis_bg.png")
-    profile_bg = PhotoImage(file="img/bg/profile_bg.png")
-    chgpwd_btn = PhotoImage(file="img/element/chgpwd_btn.png")
-    back_btn = PhotoImage(file="img/element/back_btn.png")
-    confirm_btn = PhotoImage(file="img/element/confirm_btn.png")
-    red_act = PhotoImage(file="img/element/red_act.png")
-    pink_act = PhotoImage(file="img/element/pink_act.png")
-    green_act = PhotoImage(file="img/element/green_act.png")
-    blue_act = PhotoImage(file="img/element/blue_act.png")
-    purple_act = PhotoImage(file="img/element/purple_act.png")
-    home_ico = PhotoImage(file="img/element/home_ico.png")
-    calendar_ico = PhotoImage(file="img/element/calendar_ico.png")
-    act_ico = PhotoImage(file="img/element/act_ico.png")
-    music_ico = PhotoImage(file="img/element/music_ico.png")
-    timer_ico = PhotoImage(file="img/element/timer_ico.png")
-    calendar_bg = PhotoImage(file="img/bg/calendar_bg.png")
-    freetime = PhotoImage(file="img/element/freetime.png")
-    chgpwd_bg = PhotoImage(file="img/bg/chgpwd_bg.png")
-    confirm_chgpwd = PhotoImage(file="img/element/confirm_chgpwd.png")
-    act_bg = PhotoImage(file="img/bg/act_bg.png")
-    nusic_bg = PhotoImage(file="img/bg/music_bg.png")
-    play_song_btn = PhotoImage(file="img/element/play_song.png")
-    volumn_down_btn = PhotoImage(file="img/element/volumn_down.png")
-    volumn_up_btn = PhotoImage(file="img/element/volumn_up.png")
-    pause_btn = PhotoImage(file="img/element/pause_song.png")
+    root.iconbitmap("img/light_theme/element/icon.ico")
+    home_ico = PhotoImage(file="img/light_theme/element/home_ico.png")
+    calendar_ico = PhotoImage(file="img/light_theme/element/calendar_ico.png")
+    act_ico = PhotoImage(file="img/light_theme/element/act_ico.png")
+    music_ico = PhotoImage(file="img/light_theme/element/music_ico.png")
+    timer_ico = PhotoImage(file="img/light_theme/element/timer_ico.png")
+    
+    # LIGHT THEME
+    menu_bg = PhotoImage(file="img/light_theme/bg/menu_bg.png")
+    home_bg = PhotoImage(file="img/light_theme/bg/home_bg.png")
+    login_bg = PhotoImage(file="img/light_theme/bg/login_bg.png")
+    regis_bg = PhotoImage(file="img/light_theme/bg/regis_bg.png")
+    profile_bg = PhotoImage(file="img/light_theme/bg/profile_bg.png")
+    calendar_bg = PhotoImage(file="img/light_theme/bg/calendar_bg.png")
+    chgpwd_bg = PhotoImage(file="img/light_theme/bg/chgpwd_bg.png")
+    act_bg = PhotoImage(file="img/light_theme/bg/act_bg.png")
+    music_bg = PhotoImage(file="img/light_theme/bg/music_bg.png")
+    second_act_bg = PhotoImage(file="img/light_theme/bg/second_act_bg.png")
+
+    cereal_login = PhotoImage(file="img/light_theme/element/cereal_login.png")
+    add_act_btn = PhotoImage(file="img/light_theme/element/add_act_btn.png")
+    del_act_btn = PhotoImage(file="img/light_theme/element/del_act_btn.png")
+    login_btn = PhotoImage(file="img/light_theme/element/login_btn.png")
+    regis_btn = PhotoImage(file="img/light_theme/element/regis_btn.png")
+    regis_btn1 = PhotoImage(file="img/light_theme/element/regis_btn1.png")
+    login_btn1 = PhotoImage(file="img/light_theme/element/login_btn1.png")
+    chgpwd_btn = PhotoImage(file="img/light_theme/element/chgpwd_btn.png")
+    back_btn = PhotoImage(file="img/light_theme/element/back_btn.png")
+    confirm_btn = PhotoImage(file="img/light_theme/element/confirm_btn.png")
+    lofi_1 = PhotoImage(file="img/light_theme/element/lofi_1.png")
+    lofi_2 = PhotoImage(file="img/light_theme/element/lofi_2.png")
+    guitar_1 = PhotoImage(file="img/light_theme/element/guitar_1.png")
+    guitar_2 = PhotoImage(file="img/light_theme/element/guitar_2.png")
+    chill_1 = PhotoImage(file="img/light_theme/element/chill_1.png")
+    kpop_1 = PhotoImage(file="img/light_theme/element/kpop_1.png")
+    pre_page_btn = PhotoImage(file="img/light_theme/element/pre_page_btn.png")
+    next_page_btn = PhotoImage(file="img/light_theme/element/next_page_btn.png")
+    dis_pre_page_btn = PhotoImage(file="img/light_theme/element/dis_pre_page_btn.png")
+    dis_next_page_btn = PhotoImage(file="img/light_theme/element/dis_next_page_btn.png")
+    confirm_chgpwd = PhotoImage(file="img/light_theme/element/confirm_chgpwd.png")
+    play_song_btn = PhotoImage(file="img/light_theme/element/play_song.png")
+    volumn_down_btn = PhotoImage(file="img/light_theme/element/volumn_down.png")
+    volumn_up_btn = PhotoImage(file="img/light_theme/element/volumn_up.png")
+    pause_btn = PhotoImage(file="img/light_theme/element/pause_song.png")
+    ex_act_btn = PhotoImage(file="img/light_theme/element/ex_act_btn.png")
+
+    red_act = PhotoImage(file="img/light_theme/element/red_act.png")
+    pink_act = PhotoImage(file="img/light_theme/element/pink_act.png")
+    green_act = PhotoImage(file="img/light_theme/element/green_act.png")
+    blue_act = PhotoImage(file="img/light_theme/element/blue_act.png")
+    purple_act = PhotoImage(file="img/light_theme/element/purple_act.png")
+    freetime = PhotoImage(file="img/light_theme/element/freetime.png")
+
+    
+
     userinfo = StringVar()
     pwdinfo = StringVar()
     regis_first = StringVar()
@@ -135,17 +156,12 @@ def mainwindow():
     del_namecombo_spy = StringVar()
     del_date_ent_spy = StringVar()
     song_spy = StringVar()
-    lofi_1 = PhotoImage(file="img/element/lofi_1.png")
-    lofi_2 = PhotoImage(file="img/element/lofi_2.png")
-    guitar_1 = PhotoImage(file="img/element/guitar_1.png")
-    guitar_2 = PhotoImage(file="img/element/guitar_2.png")
-    chill_1 = PhotoImage(file="img/element/chill_1.png")
-    kpop_1 = PhotoImage(file="img/element/kpop_1.png")
+    
     login_page(root)
     #root.mainloop()
 
 # slide show
-images = ["img/news/news1.png","img/news/news2.png","img/news/news3.png"]
+images = ["img/light_theme/news/news1.png","img/light_theme/news/news2.png","img/light_theme/news/news3.png"]
 photos = cycle(ImageTk.PhotoImage(Image.open(image)) for image in images)
 
 def slideShow() :
@@ -215,15 +231,15 @@ def loginclick() :
             userentry.focus_force()
 
 def menu_bar() :
-    global username,menu_frm,home_menu,cal_menu,act_menu,music_menu,timer_menu,profile_menu
+    global username,menu_frm,home_menu,cal_menu,act_menu,music_menu,profile_menu
     username = userentry.get()
     userentry.delete(0,END)
     pwdentry.delete(0,END)
     menu_frm = Frame(root,bg="#FFD4D4")
     Label(menu_frm,image=menu_bg,bg="#EBECFA").place(x=0,y=0,width=215,height=h)
     
-    options = [" Home"," Calendar", " Activity", " Music", " Timer"," Profile"]
-    command_list = [home_page,calendar_page,activity_page,music_page,timer_page,profile_page]
+    options = [" Home"," Calendar", " Accessibility", " Music"," Profile"]
+    command_list = [home_page,calendar_page,access_page,music_page,timer_page,profile_page]
 
     
     home_menu = Button(menu_frm,text=options[0],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[0],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
@@ -234,10 +250,8 @@ def menu_bar() :
     act_menu.place(x=0,y=258,width=215,height=60)
     music_menu = Button(menu_frm,text=options[3],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[3],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
     music_menu.place(x=0,y=318,width=215,height=60)
-    timer_menu = Button(menu_frm,text=options[4],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[4],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
-    timer_menu.place(x=0,y=378,width=215,height=60)
-    profile_menu = Button(menu_frm,text=options[5],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[5],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
-    profile_menu.place(x=0,y=438,width=215,height=60)
+    profile_menu = Button(menu_frm,text=options[4],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[5],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    profile_menu.place(x=0,y=378,width=215,height=60)
     Button(menu_frm,text="Logout",bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 12",command=logoutClick,activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2").place(x=80,y=618)
     menu_frm.place(x=0,y=0,width=215,height=h)
     home_page()
@@ -261,10 +275,6 @@ def home_page() :
     music_menu["fg"] = "#FFFFFF"
     music_menu["activebackground"] = "#FF5454"
     music_menu["activeforeground"] = "#FFFFFF"
-    timer_menu["bg"] = "#FF5454"
-    timer_menu["fg"] = "#FFFFFF"
-    timer_menu["activebackground"] = "#FF5454"
-    timer_menu["activeforeground"] = "#FFFFFF"
     home_menu["image"] = home_ico
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
@@ -273,8 +283,7 @@ def home_page() :
     act_menu["compound"] = LEFT
     music_menu["image"] = ""
     music_menu["compound"] = LEFT
-    timer_menu["image"] = ""
-    timer_menu["compound"] = LEFT
+    
 
 
     home_frm = Frame(root,bg="#FEEDED")
@@ -371,10 +380,6 @@ def calendar_page() :
     music_menu["fg"] = "#FFFFFF"
     music_menu["activebackground"] = "#FF5454"
     music_menu["activeforeground"] = "#FFFFFF"
-    timer_menu["bg"] = "#FF5454"
-    timer_menu["fg"] = "#FFFFFF"
-    timer_menu["activebackground"] = "#FF5454"
-    timer_menu["activeforeground"] = "#FFFFFF"
     home_menu["image"] = ""
     home_menu["compound"] = LEFT
     cal_menu["image"] = calendar_ico
@@ -383,8 +388,6 @@ def calendar_page() :
     act_menu["compound"] = LEFT
     music_menu["image"] = ""
     music_menu["compound"] = LEFT
-    timer_menu["image"] = ""
-    timer_menu["compound"] = LEFT
 
     home_frm.destroy()
     calendar_frm = Frame(root,bg="#FEEDED")
@@ -392,9 +395,10 @@ def calendar_page() :
     cal = Calendar(calendar_frm, font="Arial 12", selectmode='day', locale='en_US',showweeknumbers=False,firstweekday="sunday",background="#FF7171",weekendforeground="#FF7171")
     cal.place(x=155,y=63,width=390,height=287)
     
-    Button(calendar_frm,text="",image=add_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=add_activity, cursor="hand2").place(x=637,y=275,width=175,height=47)
-    Button(calendar_frm,text="",image=del_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=del_activity, cursor="hand2").place(x=637,y=330,width=175,height=47)
     
+    Button(calendar_frm,text="",image=add_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=add_activity, cursor="hand2").place(x=637,y=201,width=175,height=47)
+    Button(calendar_frm,text="",image=del_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=del_activity, cursor="hand2").place(x=637,y=256,width=175,height=47)
+    Button(calendar_frm,text="",image=ex_act_btn,compound=CENTER,bg="#FEEDED",fg="#1B1C22", activebackground="#FEEDED", activeforeground="#1B1C22", bd=0,relief=FLAT,command=ex_activity, cursor="hand2").place(x=637,y=311,width=175,height=47)
     add_activity()
 
     calendar_frm.place(x=215,y=0,width=985,height=h)
@@ -421,7 +425,7 @@ def add_activity() :
     act_name_ent.grid(row=2,column=1,sticky="nw",padx=10,pady=5)
     descript_ent = Entry(act_frm,textvariable=descript_ent_spy,font="Nunito 12",relief=FLAT,bd=0,bg="#FFDFDF")
     descript_ent.grid(row=3,column=1,sticky="nw",padx=10,pady=5)
-
+    
 
     color_ent = ttk.Combobox(act_frm,textvariable=color_ent_spy,width=18,state="readonly")
     color_ent.grid(row=4,column=1,sticky="nw",padx=15,pady=5)
@@ -434,9 +438,14 @@ def cf_add_act() :
     date = date_ent.get()
     act_name = act_name_ent.get()
     descript = descript_ent.get()
+    descript_lang = (detect(descript_ent.get()))
     color = color_ent.get()
-    if act_name_ent.get() == "" :
+    if descript_lang == "th" :
+        messagebox.showwarning("Cereal","Description must ne English language.")
+        descript_ent.focus_force()
+    elif act_name_ent.get() == "" :
         messagebox.showwarning("Cereal","Please enter your Activity Name.")
+        act_name_ent.focus_force()
     else :
         sql = """
                 insert into Activity
@@ -445,10 +454,10 @@ def cf_add_act() :
         cursor.execute(sql, [username,date,act_name,descript,color])
         conn.commit()
         messagebox.showinfo("Cereal","Add Activity successfully.")
-    act_name_ent.delete(0,END)
-    descript_ent.delete(0,END)
-    color_ent.set("Blue")
-    act_name_ent.focus_force()
+        act_name_ent.delete(0,END)
+        descript_ent.delete(0,END)
+        color_ent.set("Blue")
+        act_name_ent.focus_force()
 
 def del_activity() :
     global del_frm,del_date,del_date_ent,del_name,del_name_combo
@@ -505,8 +514,38 @@ def del_confirm() :
         else:
             del_namecombo_spy.set("Choose Activities")
 
-def activity_page() :
-    global activity_frm
+def ex_activity() :
+    sql = "select date,act_name,descript from Activity where username=?"
+    cursor.execute(sql,[username])
+    result = cursor.fetchall()
+    date_lst = []
+    name_lst = []
+    descript_lst = []
+
+    if result :
+        for i in range (len(result)) :
+            date_lst.append(result[i][0])
+            name_lst.append(result[i][1])
+            descript_lst.append(result[i][2])
+        file = filedialog.asksaveasfile(mode='w',
+                                        defaultextension='.txt',
+                                        filetypes=[
+                                            ("Text file",".txt"),
+                                            ("HTML file", ".html"),
+                                            ("All files", ".*")],
+                                        title='Export All Activities (%s)'%today)
+        if file is None:
+            return
+        
+        for i in range (len(date_lst)) :
+            filetext = str("""Date : %s
+Activiti Name : %s
+Description : %s \n\n""" % (date_lst[i],name_lst[i],descript_lst[i]))
+            file.write(filetext)
+        file.close()
+
+def access_page() :
+    global access_frm
     home_menu["bg"] = "#FF5454"
     home_menu["fg"] = "#FFFFFF"
     home_menu["activebackground"] = "#FF5454"
@@ -523,10 +562,6 @@ def activity_page() :
     music_menu["fg"] = "#FFFFFF"
     music_menu["activebackground"] = "#FF5454"
     music_menu["activeforeground"] = "#FFFFFF"
-    timer_menu["bg"] = "#FF5454"
-    timer_menu["fg"] = "#FFFFFF"
-    timer_menu["activebackground"] = "#FF5454"
-    timer_menu["activeforeground"] = "#FFFFFF"
     home_menu["image"] = ""
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
@@ -535,13 +570,20 @@ def activity_page() :
     act_menu["compound"] = LEFT
     music_menu["image"] = ""
     music_menu["compound"] = LEFT
-    timer_menu["image"] = ""
-    timer_menu["compound"] = LEFT
 
-    activity_frm = Frame(root,bg="#FEEDED")
-    activity_frm.place(x=215,y=0,width=985,height=h)
+    access_frm = Frame(root,bg="#FEEDED")
+    access_frm.place(x=215,y=0,width=985,height=h)
 
-    Label(activity_frm,image=act_bg,bg="#FFEDED").place(x=0,y=0,width=985,height=700)
+    first_act_page()
+    
+
+def first_act_page() :
+    first_actpage_frm = Frame(access_frm,bg="#FEEDED")
+    first_actpage_frm.place(x=0,y=0,width=985,height=h)
+
+    Label(first_actpage_frm,image=act_bg,bg="#FFEDED").place(x=0,y=0,width=985,height=700)
+
+
 
 song_state = False
 def music_page() :
@@ -562,10 +604,6 @@ def music_page() :
     music_menu["fg"] = "#FF3030"
     music_menu["activebackground"] = "#FFBABA"
     music_menu["activeforeground"] = "#FF3030"
-    timer_menu["bg"] = "#FF5454"
-    timer_menu["fg"] = "#FFFFFF"
-    timer_menu["activebackground"] = "#FF5454"
-    timer_menu["activeforeground"] = "#FFFFFF"
     home_menu["image"] = ""
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
@@ -574,15 +612,13 @@ def music_page() :
     act_menu["compound"] = LEFT
     music_menu["image"] = music_ico
     music_menu["compound"] = LEFT
-    timer_menu["image"] = ""
-    timer_menu["compound"] = LEFT
 
     music_frm = Frame(root,bg="#FEEDED")
     music_frm.place(x=215,y=0,width=985,height=h)
     pygame.mixer.init()
     volumn = 0.15
     pygame.mixer.music.set_volume(volumn)
-    Label(music_frm,image=nusic_bg,bg="#EBECFA").place(x=0,y=0,width=985,height=h)
+    Label(music_frm,image=music_bg,bg="#EBECFA").place(x=0,y=0,width=985,height=h)
 
     song_ent = Entry(music_frm,textvariable=song_spy,relief=FLAT,bd=0,state=DISABLED,cursor="arrow",justify=CENTER,font="Arial 12",disabledbackground="#FFFFFF",disabledforeground="#000000")
     song_ent.place(x=376,y=529,width=234,height=24)
@@ -632,7 +668,6 @@ def play():
     play_song["command"] = stop
     play_song["image"] = pause_btn
 def volumn_down() :
-    
     pygame.mixer.music.set_volume(0.05)
 def stop() :
     global song_state
@@ -641,7 +676,6 @@ def stop() :
     play_song["command"] = play
     play_song["image"] = play_song_btn
 def volumn_up() :
-
     pygame.mixer.music.set_volume(0.3)
 
 def timer_page() :
@@ -661,10 +695,6 @@ def timer_page() :
     music_menu["fg"] = "#FFFFFF"
     music_menu["activebackground"] = "#FF5454"
     music_menu["activeforeground"] = "#FFFFFF"
-    timer_menu["bg"] = "#FFBABA"
-    timer_menu["fg"] = "#FF3030"
-    timer_menu["activebackground"] = "#FFBABA"
-    timer_menu["activeforeground"] = "#FF3030"
     home_menu["image"] = ""
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
@@ -673,8 +703,6 @@ def timer_page() :
     act_menu["compound"] = LEFT
     music_menu["image"] = ""
     music_menu["compound"] = LEFT
-    timer_menu["image"] = timer_ico
-    timer_menu["compound"] = LEFT
 
     home_frm.destroy()
     timer_frm = Frame(root,bg="#FEEDED")
@@ -693,7 +721,7 @@ def profile_page() :
     profile_top.geometry("%dx%d+200+200"%(pro_w,pro_h))
     profile_top.config(bg='#FFDDDD')
     profile_top.option_add('*font',"Calibri 24 bold")
-    profile_top.iconbitmap("img/element/pro_icon.ico")
+    profile_top.iconbitmap("img/light_theme/element/pro_icon.ico")
     profile_top.resizable(0,0)
     profile_top.rowconfigure((0,1,2,3,4),weight=1)
     profile_top.columnconfigure((0,1),weight=1)
@@ -734,7 +762,7 @@ def chg_password() :
     chgpwd_top.geometry("%dx%d+600+400"%(chgpwd_w,chgpwd_h))
     chgpwd_top.config(bg='#FFEDED')
     chgpwd_top.option_add('*font',"Calibri 24 bold")
-    chgpwd_top.iconbitmap("img/element/pro_icon.ico")
+    chgpwd_top.iconbitmap("img/light_theme/element/pro_icon.ico")
     chgpwd_top.rowconfigure((0,1,2,3),weight=1)
     chgpwd_top.columnconfigure((0,1,2),weight=1)
     chgpwd = StringVar()
@@ -752,7 +780,7 @@ def chg_password() :
     newpwd_ent.grid(row=2,column=1,sticky="n",padx=8,pady=7,columnspan=3)
     newpwd_ent.place(x=173,y=100,width=168,height=24)
 
-    Button(chgpwd_top,image=confirm_chgpwd,bg="#FFEDED",relief=FLAT,bd=0,command=confirm_chg,activebackground="#FFEDED", cursor="hand2").place(x=133,y=156)
+    Button(chgpwd_top,image=confirm_chgpwd,bg="#FFEDED",relief=FLAT,bd=0,command=confirm_chg,activebackground="#FFEDED", cursor="hand2").place(x=139,y=155)
 
     chgpwd_top.mainloop()
 
@@ -883,7 +911,7 @@ createconnection()
 
 google_news = GNews()
 google_news = GNews(language='th', country='thai', period='1d', max_results=10, exclude_websites=['google.com', 'bbc.com/thai'])
-news = google_news.get_news('covid')
+news = google_news.get_news('covid,thailand')
 
 start_root = splash_screen()
 start_root.mainloop()
