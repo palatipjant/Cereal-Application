@@ -70,7 +70,7 @@ def mainwindow():
     # mainwindow
     global root,userinfo,pwdinfo,regis_first,regis_last,regis_username,regis_pwd,regis_cfpwd,w,h,cereal_login,login_bg,regis_btn1,login_btn1,regis_bg
     global add_act_btn,del_act_btn,date_ent_spy,act_name_ent_spy,descript_ent_spy,color_ent_spy,menu_bg,home_bg,login_btn,regis_btn
-    global profile_bg,chgpwd_btn,back_btn,confirm_btn,chgpwd_bg,confirm_chgpwd,music_bg,second_act_bg,ex_act_btn
+    global profile_bg,chgpwd_btn,back_btn,confirm_btn,chgpwd_bg,confirm_chgpwd,music_bg,second_act_bg,ex_act_btn,cal_bg
     global red_act,pink_act,green_act,blue_act,purple_act,calendar_bg,freetime,act_bg,dis_pre_page_btn,dis_next_page_btn
     global home_ico,calendar_ico,act_ico,music_ico,timer_ico,del_namecombo_spy,del_date_ent_spy,next_page_btn,pre_page_btn
     global play_song_btn,volumn_down_btn,volumn_up_btn,pause_btn,song_spy,lofi_1,lofi_2,guitar_1,guitar_2,chill_1,kpop_1
@@ -105,7 +105,7 @@ def mainwindow():
     act_bg = PhotoImage(file="img/light_theme/bg/act_bg.png")
     music_bg = PhotoImage(file="img/light_theme/bg/music_bg.png")
     second_act_bg = PhotoImage(file="img/light_theme/bg/second_act_bg.png")
-
+    cal_bg = PhotoImage(file="img/light_theme/bg/cal_bg.png")
     cereal_login = PhotoImage(file="img/light_theme/element/cereal_login.png")
     add_act_btn = PhotoImage(file="img/light_theme/element/add_act_btn.png")
     del_act_btn = PhotoImage(file="img/light_theme/element/del_act_btn.png")
@@ -231,26 +231,26 @@ def loginclick() :
             userentry.focus_force()
 
 def menu_bar() :
-    global username,menu_frm,home_menu,cal_menu,act_menu,music_menu,profile_menu
+    global username,menu_frm,home_menu,cal_menu,calculator_menu,music_menu,profile_menu
     username = userentry.get()
     userentry.delete(0,END)
     pwdentry.delete(0,END)
     menu_frm = Frame(root,bg="#FFD4D4")
     Label(menu_frm,image=menu_bg,bg="#EBECFA").place(x=0,y=0,width=215,height=h)
     
-    options = [" Home"," Calendar", " Accessibility", " Music"," Profile"]
-    command_list = [home_page,calendar_page,access_page,music_page,timer_page,profile_page]
+    options = [" Home"," Calendar", " Calculator", " Music"," Profile"]
+    command_list = [home_page,calendar_page,calculator_page,music_page,profile_page]
 
     
     home_menu = Button(menu_frm,text=options[0],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[0],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
     home_menu.place(x=0,y=138,width=215,height=60)
     cal_menu = Button(menu_frm,text=options[1],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[1],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
     cal_menu.place(x=0,y=198,width=215,height=60)
-    act_menu = Button(menu_frm,text=options[2],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[2],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
-    act_menu.place(x=0,y=258,width=215,height=60)
+    calculator_menu = Button(menu_frm,text=options[2],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[2],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    calculator_menu.place(x=0,y=318,width=215,height=60)
     music_menu = Button(menu_frm,text=options[3],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[3],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
-    music_menu.place(x=0,y=318,width=215,height=60)
-    profile_menu = Button(menu_frm,text=options[4],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[5],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
+    music_menu.place(x=0,y=258,width=215,height=60)
+    profile_menu = Button(menu_frm,text=options[4],bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 15 bold",command=command_list[4],activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2")
     profile_menu.place(x=0,y=378,width=215,height=60)
     Button(menu_frm,text="Logout",bg="#FF5454",fg="#FFFFFF",relief=FLAT,bd=0,font="Nunito 12",command=logoutClick,activebackground="#FF5454",activeforeground="#FFFFFF", cursor="hand2").place(x=80,y=618)
     menu_frm.place(x=0,y=0,width=215,height=h)
@@ -267,10 +267,6 @@ def home_page() :
     cal_menu["fg"] = "#FFFFFF"
     cal_menu["activebackground"] = "#FF5454"
     cal_menu["activeforeground"] = "#FFFFFF"
-    act_menu["bg"] = "#FF5454"
-    act_menu["fg"] = "#FFFFFF"
-    act_menu["activebackground"] = "#FF5454"
-    act_menu["activeforeground"] = "#FFFFFF"
     music_menu["bg"] = "#FF5454"
     music_menu["fg"] = "#FFFFFF"
     music_menu["activebackground"] = "#FF5454"
@@ -279,8 +275,6 @@ def home_page() :
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
     cal_menu["compound"] = LEFT
-    act_menu["image"] = ""
-    act_menu["compound"] = LEFT
     music_menu["image"] = ""
     music_menu["compound"] = LEFT
     
@@ -372,10 +366,6 @@ def calendar_page() :
     cal_menu["fg"] = "#FF3030"
     cal_menu["activebackground"] = "#FFBABA"
     cal_menu["activeforeground"] = "#FF3030"
-    act_menu["bg"] = "#FF5454"
-    act_menu["fg"] = "#FFFFFF"
-    act_menu["activebackground"] = "#FF5454"
-    act_menu["activeforeground"] = "#FFFFFF"
     music_menu["bg"] = "#FF5454"
     music_menu["fg"] = "#FFFFFF"
     music_menu["activebackground"] = "#FF5454"
@@ -384,12 +374,10 @@ def calendar_page() :
     home_menu["compound"] = LEFT
     cal_menu["image"] = calendar_ico
     cal_menu["compound"] = LEFT
-    act_menu["image"] = ""
-    act_menu["compound"] = LEFT
     music_menu["image"] = ""
     music_menu["compound"] = LEFT
 
-    home_frm.destroy()
+    #home_frm.destroy()
     calendar_frm = Frame(root,bg="#FEEDED")
     Label(calendar_frm,image=calendar_bg,bg="#EBECFA").place(x=0,y=0,width=985,height=h)
     cal = Calendar(calendar_frm, font="Arial 12", selectmode='day', locale='en_US',showweeknumbers=False,firstweekday="sunday",background="#FF7171",weekendforeground="#FF7171")
@@ -438,14 +426,17 @@ def cf_add_act() :
     date = date_ent.get()
     act_name = act_name_ent.get()
     descript = descript_ent.get()
-    descript_lang = (detect(descript_ent.get()))
     color = color_ent.get()
-    if descript_lang == "th" :
-        messagebox.showwarning("Cereal","Description must ne English language.")
-        descript_ent.focus_force()
-    elif act_name_ent.get() == "" :
+    if descript_ent.get() != "" :
+        descript_lang = (detect(descript_ent.get()))
+    else :
+        descript_lang = ""
+    if act_name_ent.get() == "" :
         messagebox.showwarning("Cereal","Please enter your Activity Name.")
         act_name_ent.focus_force()
+    elif descript_lang == "th" :
+        messagebox.showwarning("Cereal","Description must bse English language.")
+        descript_ent.focus_force()
     else :
         sql = """
                 insert into Activity
@@ -544,46 +535,20 @@ Description : %s \n\n""" % (date_lst[i],name_lst[i],descript_lst[i]))
             file.write(filetext)
         file.close()
 
-def access_page() :
-    global access_frm
-    home_menu["bg"] = "#FF5454"
-    home_menu["fg"] = "#FFFFFF"
-    home_menu["activebackground"] = "#FF5454"
-    home_menu["activeforeground"] = "#FFFFFF"
-    cal_menu["bg"] = "#FF5454"
-    cal_menu["fg"] = "#FFFFFF"
-    cal_menu["activebackground"] = "#FF5454"
-    cal_menu["activeforeground"] = "#FFFFFF"
-    act_menu["bg"] = "#FFBABA"
-    act_menu["fg"] = "#FF3030"
-    act_menu["activebackground"] = "#FFBABA"
-    act_menu["activeforeground"] = "#FF3030"
-    music_menu["bg"] = "#FF5454"
-    music_menu["fg"] = "#FFFFFF"
-    music_menu["activebackground"] = "#FF5454"
-    music_menu["activeforeground"] = "#FFFFFF"
-    home_menu["image"] = ""
-    home_menu["compound"] = LEFT
-    cal_menu["image"] = ""
-    cal_menu["compound"] = LEFT
-    act_menu["image"] = act_ico
-    act_menu["compound"] = LEFT
-    music_menu["image"] = ""
-    music_menu["compound"] = LEFT
-
-    access_frm = Frame(root,bg="#FEEDED")
-    access_frm.place(x=215,y=0,width=985,height=h)
-
-    first_act_page()
-    
-
-def first_act_page() :
-    first_actpage_frm = Frame(access_frm,bg="#FEEDED")
-    first_actpage_frm.place(x=0,y=0,width=985,height=h)
-
-    Label(first_actpage_frm,image=act_bg,bg="#FFEDED").place(x=0,y=0,width=985,height=700)
-
-
+def calculator_page() :
+    calculator_top = Toplevel()
+    calculator_top.grab_set()
+    pro_w = 363
+    pro_h = 466
+    calculator_top.title("Cereal Calculator")
+    calculator_top.geometry("%dx%d+200+200"%(pro_w,pro_h))
+    calculator_top.config(bg='#FFDDDD')
+    calculator_top.iconbitmap("img/light_theme/element/cereal.ico")
+    calculator_top.resizable(0,0)
+    calculator_top.rowconfigure((0,1,2,3,4),weight=1)
+    calculator_top.columnconfigure((0,1),weight=1)
+    Label(calculator_top,image=cal_bg,bg="#EBECFA").place(x=0,y=0,width=363,height=466)
+    calculator_top.mainloop()
 
 song_state = False
 def music_page() :
@@ -596,10 +561,6 @@ def music_page() :
     cal_menu["fg"] = "#FFFFFF"
     cal_menu["activebackground"] = "#FF5454"
     cal_menu["activeforeground"] = "#FFFFFF"
-    act_menu["bg"] = "#FF5454"
-    act_menu["fg"] = "#FFFFFF"
-    act_menu["activebackground"] = "#FF5454"
-    act_menu["activeforeground"] = "#FFFFFF"
     music_menu["bg"] = "#FFBABA"
     music_menu["fg"] = "#FF3030"
     music_menu["activebackground"] = "#FFBABA"
@@ -608,8 +569,6 @@ def music_page() :
     home_menu["compound"] = LEFT
     cal_menu["image"] = ""
     cal_menu["compound"] = LEFT
-    act_menu["image"] = ""
-    act_menu["compound"] = LEFT
     music_menu["image"] = music_ico
     music_menu["compound"] = LEFT
 
@@ -678,35 +637,6 @@ def stop() :
 def volumn_up() :
     pygame.mixer.music.set_volume(0.3)
 
-def timer_page() :
-    home_menu["bg"] = "#FF5454"
-    home_menu["fg"] = "#FFFFFF"
-    home_menu["activebackground"] = "#FF5454"
-    home_menu["activeforeground"] = "#FFFFFF"
-    cal_menu["bg"] = "#FF5454"
-    cal_menu["fg"] = "#FFFFFF"
-    cal_menu["activebackground"] = "#FF5454"
-    cal_menu["activeforeground"] = "#FFFFFF"
-    act_menu["bg"] = "#FF5454"
-    act_menu["fg"] = "#FFFFFF"
-    act_menu["activebackground"] = "#FF5454"
-    act_menu["activeforeground"] = "#FFFFFF"
-    music_menu["bg"] = "#FF5454"
-    music_menu["fg"] = "#FFFFFF"
-    music_menu["activebackground"] = "#FF5454"
-    music_menu["activeforeground"] = "#FFFFFF"
-    home_menu["image"] = ""
-    home_menu["compound"] = LEFT
-    cal_menu["image"] = ""
-    cal_menu["compound"] = LEFT
-    act_menu["image"] = ""
-    act_menu["compound"] = LEFT
-    music_menu["image"] = ""
-    music_menu["compound"] = LEFT
-
-    home_frm.destroy()
-    timer_frm = Frame(root,bg="#FEEDED")
-    timer_frm.place(x=215,y=0,width=985,height=h)
 
 def profile_page() :
     global profile_top
