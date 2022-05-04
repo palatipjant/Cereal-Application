@@ -73,7 +73,7 @@ def mainwindow():
     global profile_bg,chgpwd_btn,back_btn,confirm_btn,chgpwd_bg,confirm_chgpwd,music_bg,second_act_bg,ex_act_btn,cal_bg
     global red_act,pink_act,green_act,blue_act,purple_act,calendar_bg,freetime,act_bg,dis_pre_page_btn,dis_next_page_btn
     global home_ico,calendar_ico,act_ico,music_ico,timer_ico,del_namecombo_spy,del_date_ent_spy,next_page_btn,pre_page_btn
-    global play_song_btn,volumn_down_btn,volumn_up_btn,pause_btn,song_spy,lofi_1,lofi_2,guitar_1,guitar_2,chill_1,kpop_1
+    global play_song_btn,volumn_down_btn,volumn_up_btn,pause_btn,song_spy,lofi_1,lofi_2,guitar_1,guitar_2,chill_1,kpop_1,res_text
     root = Tk()
     w = 1200
     h = 700
@@ -82,7 +82,6 @@ def mainwindow():
     root.geometry("%dx%d+%d+%d"%(w,h,x,y))
     root.config(bg='black')
     root.title("Cereal Digital Planner")
-    root.option_add('*font',"Calibri 12")
     root.rowconfigure((0,1,2,3,4),weight=1)
     root.columnconfigure((0,1,2,3,4),weight=1)
     root.resizable(0,0)
@@ -133,6 +132,28 @@ def mainwindow():
     pause_btn = PhotoImage(file="img/light_theme/element/pause_song.png")
     ex_act_btn = PhotoImage(file="img/light_theme/element/ex_act_btn.png")
 
+    global cal_0_btn,cal_1_btn,cal_2_btn,cal_3_btn,cal_4_btn,cal_5_btn,cal_6_btn,cal_7_btn,cal_8_btn,cal_9_btn
+    global cal_ac_btn,cal_c_btn,cal_div_btn,cal_dot_btn,cal_eq_btn,cal_minus_btn,cal_mod_btn,cal_plus_btn,cal_times_btn
+    cal_0_btn = PhotoImage(file="img/light_theme/element/cal_0_btn.png")
+    cal_1_btn = PhotoImage(file="img/light_theme/element/cal_1_btn.png")
+    cal_2_btn = PhotoImage(file="img/light_theme/element/cal_2_btn.png")
+    cal_3_btn = PhotoImage(file="img/light_theme/element/cal_3_btn.png")
+    cal_4_btn = PhotoImage(file="img/light_theme/element/cal_4_btn.png")
+    cal_5_btn = PhotoImage(file="img/light_theme/element/cal_5_btn.png")
+    cal_6_btn = PhotoImage(file="img/light_theme/element/cal_6_btn.png")
+    cal_7_btn = PhotoImage(file="img/light_theme/element/cal_7_btn.png")
+    cal_8_btn = PhotoImage(file="img/light_theme/element/cal_8_btn.png")
+    cal_9_btn = PhotoImage(file="img/light_theme/element/cal_9_btn.png")
+    cal_ac_btn = PhotoImage(file="img/light_theme/element/cal_ac_btn.png")
+    cal_c_btn = PhotoImage(file="img/light_theme/element/cal_c_btn.png")
+    cal_div_btn = PhotoImage(file="img/light_theme/element/cal_div_btn.png")
+    cal_dot_btn = PhotoImage(file="img/light_theme/element/cal_dot_btn.png")
+    cal_eq_btn = PhotoImage(file="img/light_theme/element/cal_eq_btn.png")
+    cal_minus_btn = PhotoImage(file="img/light_theme/element/cal_minus_btn.png")
+    cal_mod_btn = PhotoImage(file="img/light_theme/element/cal_mod_btn.png")
+    cal_plus_btn = PhotoImage(file="img/light_theme/element/cal_plus_btn.png")
+    cal_times_btn = PhotoImage(file="img/light_theme/element/cal_times_btn.png")
+
     red_act = PhotoImage(file="img/light_theme/element/red_act.png")
     pink_act = PhotoImage(file="img/light_theme/element/pink_act.png")
     green_act = PhotoImage(file="img/light_theme/element/green_act.png")
@@ -141,7 +162,6 @@ def mainwindow():
     freetime = PhotoImage(file="img/light_theme/element/freetime.png")
 
     
-
     userinfo = StringVar()
     pwdinfo = StringVar()
     regis_first = StringVar()
@@ -156,7 +176,10 @@ def mainwindow():
     del_namecombo_spy = StringVar()
     del_date_ent_spy = StringVar()
     song_spy = StringVar()
-    
+    res_text = StringVar()
+    global expression
+    expression = ""
+    res_text.set("0.0")
     login_page(root)
     #root.mainloop()
 
@@ -472,7 +495,7 @@ def del_activity() :
     del_name_combo.grid(row=2,column=1,sticky="nw",padx=10,pady=5)
     sql = """
             select act_name from Activity where username=? and date=?
-          """
+            """
     cursor.execute(sql,[username,cal.selection_get()])
     result = cursor.fetchall()
     result_lst = []
@@ -536,6 +559,7 @@ Description : %s \n\n""" % (date_lst[i],name_lst[i],descript_lst[i]))
         file.close()
 
 def calculator_page() :
+    res_text.set("0.0")
     calculator_top = Toplevel()
     calculator_top.grab_set()
     pro_w = 363
@@ -548,7 +572,87 @@ def calculator_page() :
     calculator_top.rowconfigure((0,1,2,3,4),weight=1)
     calculator_top.columnconfigure((0,1),weight=1)
     Label(calculator_top,image=cal_bg,bg="#EBECFA").place(x=0,y=0,width=363,height=466)
+    ans = Label(calculator_top,font="Garamon 36 bold",fg='#7573F1',text="0.0",bg='#FBEBFF', textvariable=res_text)
+    ans.place(x=0,y=61,width=363,height=62)
+    #ans.grid(row=0,column=0,columnspan=4,sticky='news')
+    r2_btn1 = Button(calculator_top, image=cal_ac_btn, activebackground="#FBEBFF", command=btn_clear, borderwidth=0, fg="white", bg="#FBEBFF")
+    r2_btn1.place(x=51,y=142,width=56,height=57)
+    #r2_btn1.grid(row=1, column=0, sticky="news")
+    r2_btn2 = Button(calculator_top, image=cal_c_btn, text="C", activebackground="#FBEBFF", command=btn_clear, borderwidth=0, fg="white", bg="#FBEBFF")
+    r2_btn2.place(x=121,y=142,width=56,height=57)
+    #r2_btn2.grid(row=1, column=1, sticky="news")
+    r2_btn3 = Button(calculator_top, image=cal_mod_btn, text="%", activebackground="#FBEBFF", command=lambda:btn_click("%"), borderwidth=0, fg="white", bg="#FBEBFF")
+    r2_btn3.place(x=189,y=142,width=56,height=57)
+    #r2_btn3.grid(row=1, column=2, sticky="news")
+    r2_btn4 = Button(calculator_top, image=cal_div_btn, text="/", activebackground="#FBEBFF", command=lambda:btn_click("/"), borderwidth=0, fg="white", bg="#FBEBFF")
+    r2_btn4.place(x=257,y=142,width=56,height=57)
+    #r2_btn4.grid(row=1, column=3, sticky="news")
+    r3_bt1 = Button(calculator_top, image=cal_7_btn, text="7", activebackground="#FBEBFF", command=lambda:btn_click(7), borderwidth=0, fg="white", bg="#FBEBFF")
+    r3_bt1.place(x=51,y=205,width=56,height=57)
+    #r3_bt1.grid(row=2,column=0,sticky='news')
+    r3_bt2 = Button(calculator_top, image=cal_8_btn,text='8', activebackground="#FBEBFF", command=lambda:btn_click(8), borderwidth=0, fg="white", bg="#FBEBFF")
+    r3_bt2.place(x=121,y=205,width=56,height=57)
+    #r3_bt2.grid(row=2,column=1,sticky='news')
+    r3_bt3 = Button(calculator_top, image=cal_9_btn,text="9", activebackground="#FBEBFF", command=lambda:btn_click(9), borderwidth=0, fg="white", bg="#FBEBFF")
+    r3_bt3.place(x=189,y=205,width=56,height=57)
+    #r3_bt3.grid(row=2,column=2,sticky='news')
+    r3_bt4 = Button(calculator_top, image=cal_times_btn,text="X", activebackground="#FBEBFF", command=lambda:btn_click("*"), borderwidth=0, fg="white", bg="#FBEBFF")
+    r3_bt4.place(x=257,y=205,width=56,height=57)
+    #r3_bt4.grid(row=2,column=3,sticky='news')
+    r4_bt1 = Button(calculator_top, image=cal_4_btn, text="4", activebackground="#FBEBFF", command = lambda:btn_click(4), borderwidth=0, fg="white", bg="#FBEBFF")
+    r4_bt1.place(x=51,y=268,width=56,height=57)
+    #r4_bt1.grid(row=3,column=0,sticky='news')
+    r4_bt2 = Button(calculator_top, image=cal_5_btn, text='5', activebackground="#FBEBFF", command = lambda: btn_click(5), borderwidth=0, fg="white", bg="#FBEBFF")
+    r4_bt2.place(x=121,y=268,width=56,height=57)
+    #r4_bt2.grid(row=3,column=1,sticky='news')
+    r4_bt3 = Button(calculator_top, image=cal_6_btn, text="6", activebackground="#FBEBFF", command = lambda: btn_click(6), borderwidth=0, fg="white", bg="#FBEBFF")
+    r4_bt3.place(x=189,y=268,width=56,height=57)
+    #r4_bt3.grid(row=3,column=2,sticky='news')
+    r4_bt4 = Button(calculator_top, image=cal_minus_btn, text="-", activebackground="#FBEBFF", command = lambda: btn_click("-"), borderwidth=0, fg="white", bg="#FBEBFF")
+    r4_bt4.place(x=257,y=268,width=56,height=57)
+    #r4_bt4.grid(row=3,column=3,sticky='news')
+    r5_bt1 = Button(calculator_top, image=cal_1_btn, text="1", activebackground="#FBEBFF", command = lambda: btn_click(1), borderwidth=0, fg="white", bg="#FBEBFF")
+    r5_bt1.place(x=51,y=331,width=56,height=57)
+    #r5_bt1.grid(row=4,column=0,sticky='news')
+    r5_bt2 = Button(calculator_top, image=cal_2_btn, text='2', activebackground="#FBEBFF", command = lambda: btn_click(2), borderwidth=0, fg="white", bg="#FBEBFF")
+    r5_bt2.place(x=121,y=331,width=56,height=57)
+    #r5_bt2.grid(row=4,column=1,sticky='news')
+    r5_bt3 = Button(calculator_top, image=cal_3_btn,text="3", activebackground="#FBEBFF", command = lambda: btn_click(3), borderwidth=0, fg="white", bg="#FBEBFF")
+    r5_bt3.place(x=189,y=331,width=56,height=57)
+    #r5_bt3.grid(row=4,column=2,sticky='news')
+    r5_bt4 = Button(calculator_top, image=cal_plus_btn,text="+", activebackground="#FBEBFF", command = lambda: btn_click("+"), borderwidth=0, fg="white", bg="#FBEBFF")
+    r5_bt4.place(x=257,y=331,width=56,height=57)
+    #r5_bt4.grid(row=4,column=3,sticky='news')
+    r6_bt1 = Button(calculator_top, image=cal_0_btn, text="0", activebackground="#FBEBFF", borderwidth=0, fg="white", bg="#FBEBFF",command=lambda:btn_click("0"))
+    r6_bt1.place(x=51,y=394,width=136,height=57)
+    #r6_bt1.grid(row=5,column=0,columnspan=2, sticky='news')
+    r6_bt2 = Button(calculator_top, image=cal_dot_btn, text=".", activebackground="#FBEBFF", command=lambda:btn_click("."), borderwidth=0, fg="white", bg="#FBEBFF")
+    r6_bt2.place(x=189,y=394,width=56,height=57)
+    #r6_bt2.grid(row=5, column=2, sticky="news")
+    r6_bt3 = Button(calculator_top, image=cal_eq_btn, text="=", activebackground="#FBEBFF",command=btn_equal, borderwidth=0, fg="white", bg="#FBEBFF")
+    r6_bt3.place(x=257,y=394,width=56,height=57)
+    #r6_bt3.grid(row=5,column=3,sticky='news')
+    
     calculator_top.mainloop()
+
+def btn_click(item):
+    global expression
+    expression = expression + str(item)
+    res_text.set(expression)
+    #print(expression)
+
+def btn_clear():
+    global expression
+    expression = ""
+    res_text.set("0.0")
+    #print(expression)
+
+def btn_equal():
+    global expression
+    result = eval(expression)
+    res_text.set(str(result))
+    expression = str(result)
+    #print(expression)
 
 song_state = False
 def music_page() :
@@ -650,7 +754,6 @@ def profile_page() :
     profile_top.title("Cereal Profile")
     profile_top.geometry("%dx%d+200+200"%(pro_w,pro_h))
     profile_top.config(bg='#FFDDDD')
-    profile_top.option_add('*font',"Calibri 24 bold")
     profile_top.iconbitmap("img/light_theme/element/pro_icon.ico")
     profile_top.resizable(0,0)
     profile_top.rowconfigure((0,1,2,3,4),weight=1)
@@ -691,7 +794,6 @@ def chg_password() :
     #chgpwd_top.geometry("%dx%d+%d+%d"%(chgpwd_w,chgpwd_h,chgpwd_x,chgpwd_y))
     chgpwd_top.geometry("%dx%d+600+400"%(chgpwd_w,chgpwd_h))
     chgpwd_top.config(bg='#FFEDED')
-    chgpwd_top.option_add('*font',"Calibri 24 bold")
     chgpwd_top.iconbitmap("img/light_theme/element/pro_icon.ico")
     chgpwd_top.rowconfigure((0,1,2,3),weight=1)
     chgpwd_top.columnconfigure((0,1,2),weight=1)

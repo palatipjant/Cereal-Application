@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --hiddenimport=babel.numbers --icon=cereal.ico Cereal_Application.py
