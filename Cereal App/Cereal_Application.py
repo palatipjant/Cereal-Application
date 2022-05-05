@@ -20,7 +20,7 @@ def splash_screen() :
     h_splash = 250
     screen_width = splash_root.winfo_screenwidth()/2 - w_splash/2
     screen_height = splash_root.winfo_screenheight()/2 - h_splash/2
-    
+
     splash_root.geometry("%dx%d+%d+%d" %(w_splash,h_splash,screen_width,screen_height))
     splash_root.overrideredirect(1)
     
@@ -29,7 +29,7 @@ def splash_screen() :
     ttk_style.configure("red.Horizontal.TProgressbar", foreground='red', background='#F86E6E')
     progress = Progressbar(splash_root,orient=HORIZONTAL,length=500,mode='determinate',style="red.Horizontal.TProgressbar")
     progress.place(x=-10,y=235)
-    bg_splash = '#FEEDED'
+    bg_splash = '#F3D3D3'
     Frame(splash_root,width=427,height=241,bg=bg_splash).place(x=0,y=0)
     
     splash_root.after(100,bar)
@@ -458,7 +458,7 @@ def cf_add_act() :
         messagebox.showwarning("Cereal","Please enter your Activity Name.")
         act_name_ent.focus_force()
     elif descript_lang == "th" :
-        messagebox.showwarning("Cereal","Description must bse English language.")
+        messagebox.showwarning("Cereal","Description must be English language.")
         descript_ent.focus_force()
     else :
         sql = """
