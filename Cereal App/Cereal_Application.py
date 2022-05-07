@@ -553,7 +553,7 @@ def ex_activity() :
         
         for i in range (len(date_lst)) :
             filetext = str("""Date : %s
-Activiti Name : %s
+Activity Name : %s
 Description : %s \n\n""" % (date_lst[i],name_lst[i],descript_lst[i]))
             file.write(filetext)
         file.close()
@@ -931,7 +931,7 @@ def registration() :
             regis_cfpwd_ent.delete(0,END)
             login_page(root)
         else :
-            messagebox.showwarning("Cereal","This Email was already exist")
+            messagebox.showwarning("Cereal","This Username was already exist")
             regis_username_ent.focus_force()
             regis_username_ent.select_range(0,END)
 
