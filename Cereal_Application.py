@@ -942,9 +942,9 @@ def exitRegis() :
 createconnection()
 
 google_news = GNews()
-google_news = GNews(language='th', country='thai', period='1d', max_results=10, exclude_websites=['google.com', 'bbc.com/thai'])
-news = google_news.get_news('covid,thailand')
-
+google_news = GNews(language='en', country='EN', period='7d', max_results=20, exclude_websites=['google.com', 'bbc.com/thai'])
+news = google_news.get_news('today')
+print(news)
 start_root = splash_screen()
 start_root.mainloop()
 
